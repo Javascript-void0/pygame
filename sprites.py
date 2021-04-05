@@ -13,6 +13,9 @@ class Player(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+        self.health = PLAYER_HEALTH
+        self.strength = PLAYER_STRENGTH
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx, dy):
@@ -25,6 +28,7 @@ class Player(pg.sprite.Sprite):
                 return True
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
+                self.attack(mob)
                 return True
         for build in self.game.builds:
             if build.x == self.x + dx and build.y == self.y + dy:
@@ -33,6 +37,11 @@ class Player(pg.sprite.Sprite):
             if tree.x == self.x + dx and tree.y == self.y + dy:
                 return True
         return False
+
+    def attack(self, mob):
+        mob.health -= self.strength
+        if mob.health <= 0:
+            mob.kill()
 
     def update(self):
         self.rect.x = self.x * TILESIZE
@@ -49,6 +58,9 @@ class Mob(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+        self.health = MOB_HEALTH
+        self.strength = MOB_STRENGTH
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -67,6 +79,7 @@ class Mob(pg.sprite.Sprite):
 
     def collide_with_player(self, dx = 0, dy = 0):
         if self.game.player.x == self.x + dx and self.game.player.y == self.y + dy:
+            self.attack(self.game.player)
             return True
         return False
 
@@ -93,6 +106,11 @@ class Mob(pg.sprite.Sprite):
             self.y += dy
             return True
         return False
+
+    def attack(self, player):
+        player.health -= self.strength
+        if player.health <= 0:
+            player.kill()
 
     def update(self):
         self.rect.x = self.x * TILESIZE

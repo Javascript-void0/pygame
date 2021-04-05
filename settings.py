@@ -26,3 +26,8 @@ GROUND1_IMG = 'ground1.png'
 TREE_IMG = 'tree.png'
 TREE1_IMG = 'tree1.png'
 BUILD_IMG = 'build.png'
+
+PLAYER_STRENGTH = 1
+PLAYER_HEALTH = 50
+MOB_STRENGTH = 1
+MOB_HEALTH = 3

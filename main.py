@@ -1,7 +1,6 @@
 import pygame as pg
 import sys
 import random
-from math import sqrt
 from os import path
 from settings import *
 from sprites import *
