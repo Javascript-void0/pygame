@@ -32,19 +32,18 @@ class Game:
 
     def load_data(self):
         game_folder = path.dirname(__file__)
-        img_folder = path.join(game_folder, 'assets')
-        self.map = Map(path.join(game_folder, 'map.txt'))
+        asset_folder = path.join(game_folder, 'assets')
+        map_folder = path.join(game_folder, 'map')
+        self.map = TiledMap(path.join(map_folder, 'f.tmx'))
+        self.map_img = self.map.make_map()
+        self.map_rect = self.map_img.get_rect()
 
-        self.player_img = pg.image.load(path.join(img_folder, PLAYER_IMG)).convert_alpha()
+        self.player_img = pg.image.load(path.join(asset_folder, PLAYER_IMG)).convert_alpha()
         self.player_img = pg.transform.scale(self.player_img, (TILESIZE, TILESIZE))
-        self.mob_img = pg.image.load(path.join(img_folder, MOB_IMG)).convert_alpha()
+        self.mob_img = pg.image.load(path.join(asset_folder, MOB_IMG)).convert_alpha()
         self.mob_img = pg.transform.scale(self.mob_img, (TILESIZE, TILESIZE))
-        self.wall_img = pg.image.load(path.join(img_folder, WALL_IMG)).convert_alpha()
+        self.wall_img = pg.image.load(path.join(asset_folder, WALL_IMG)).convert_alpha()
         self.wall_img = pg.transform.scale(self.wall_img, (TILESIZE, TILESIZE))
-        self.build_img = pg.image.load(path.join(img_folder, BUILD_IMG)).convert_alpha()
-        self.build_img = pg.transform.scale(self.build_img, (TILESIZE, TILESIZE))
-        self.tree_img = pg.image.load(path.join(img_folder, TREE_IMG)).convert_alpha()
-        self.tree_img = pg.transform.scale(self.tree_img, (TILESIZE, TILESIZE))
 
     def new(self):
         self.all_sprites = pg.sprite.Group()
@@ -52,19 +51,16 @@ class Game:
         self.mobs = pg.sprite.Group()
         self.builds = pg.sprite.Group()
         self.trees = pg.sprite.Group()
-        for row, tiles in enumerate(self.map.data):
-            for col, tile in enumerate(tiles):
-                if tile == '1':
-                    Wall(self, col, row)
-                if tile == 'P':
-                    self.player = Player(self, col, row)
-                if tile == 'M':
-                    Mob(self, col, row)
-                if tile == 'B':
-                    Build(self, col, row)
-                if tile == 'T':
-                    Tree(self, col, row)
+
+        for tile_object in self.map.tmxdata.objects:
+            if tile_object.name == 'player':
+                self.player = Player(self, tile_object.x, tile_object.y)
+            if tile_object.name == 'mob':
+                Mob(self, tile_object.x, tile_object.y)
+            if tile_object.name == 'wall':
+                Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
         self.camera = Camera(self.map.width, self.map.height)
+        self.draw_debug = False
 
     def run(self):
         self.playing = True
@@ -108,6 +104,8 @@ class Game:
                     self.player.move(dy = 1)
                     for mob in self.mobs:
                         mob.move_toward()
+                if event.key == pg.K_h:
+                    self.draw_debug = not self.draw_debug
 
     def draw_grid(self):
         for x in range(0, WIDTH, TILESIZE):
@@ -117,10 +115,15 @@ class Game:
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f}".format(TITLE, self.clock.get_fps()))
-        self.screen.fill(BG_COLOR)
-        self.draw_grid()
+        # self.screen.fill(BG_COLOR)
+        self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
+        # self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+
+        if self.draw_debug:
+            for wall in self.walls:
+                pg.draw.rect(self.screen, C2, self.camera.apply_rect(wall.rect), 1)
         draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
         pg.display.flip()
 

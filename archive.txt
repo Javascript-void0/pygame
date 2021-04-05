@@ -1,0 +1,18 @@
+for row, tiles in enumerate(self.map.data):
+    for col, tile in enumerate(tiles):
+        if tile == '1':
+            Wall(self, col, row)
+        if tile == 'P':
+            self.player = Player(self, col, row)
+        if tile == 'M':
+            Mob(self, col, row)
+        if tile == 'B':
+            Build(self, col, row)
+        if tile == 'T':
+            Tree(self, col, row)
+
+
+        self.build_img = pg.image.load(path.join(asset_folder, BUILD_IMG)).convert_alpha()
+        self.build_img = pg.transform.scale(self.build_img, (TILESIZE, TILESIZE))
+        self.tree_img = pg.image.load(path.join(asset_folder, TREE_IMG)).convert_alpha()
+        self.tree_img = pg.transform.scale(self.tree_img, (TILESIZE, TILESIZE))
