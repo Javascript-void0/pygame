@@ -6,6 +6,21 @@ from settings import *
 from sprites import *
 from tilemap import *
 
+def draw_player_health(surf, x, y, pct):
+    if pct < 0:
+        pct = 0
+    BAR_LENGTH = 100
+    BAR_HEIGHT = 20
+    fill = pct * BAR_LENGTH
+    outline_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
+    fill_rect = pg.Rect(x, y, fill, BAR_HEIGHT)
+    bg_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
+    col = C4
+    bg = BG_COLOR
+    pg.draw.rect(surf, bg, bg_rect)
+    pg.draw.rect(surf, col, fill_rect)
+    pg.draw.rect(surf, C1, outline_rect, 2)
+
 class Game:
     def __init__(self):
         pg.init()
@@ -37,7 +52,6 @@ class Game:
         self.mobs = pg.sprite.Group()
         self.builds = pg.sprite.Group()
         self.trees = pg.sprite.Group()
-#        self.ground = pg.sprite.Group()
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -107,6 +121,7 @@ class Game:
         self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+        draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
         pg.display.flip()
 
     def show_start_screen(self):

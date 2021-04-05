@@ -28,7 +28,7 @@ class Player(pg.sprite.Sprite):
                 return True
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
-                self.attack(mob)
+                mob.health -= self.strength
                 return True
         for build in self.game.builds:
             if build.x == self.x + dx and build.y == self.y + dy:
@@ -38,14 +38,11 @@ class Player(pg.sprite.Sprite):
                 return True
         return False
 
-    def attack(self, mob):
-        mob.health -= self.strength
-        if mob.health <= 0:
-            mob.kill()
-
     def update(self):
         self.rect.x = self.x * TILESIZE
         self.rect.y = self.y * TILESIZE
+        if self.health <= 0:
+            self.kill()
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -79,7 +76,7 @@ class Mob(pg.sprite.Sprite):
 
     def collide_with_player(self, dx = 0, dy = 0):
         if self.game.player.x == self.x + dx and self.game.player.y == self.y + dy:
-            self.attack(self.game.player)
+            self.game.player.health -= self.strength
             return True
         return False
 
@@ -107,14 +104,11 @@ class Mob(pg.sprite.Sprite):
             return True
         return False
 
-    def attack(self, player):
-        player.health -= self.strength
-        if player.health <= 0:
-            player.kill()
-
     def update(self):
         self.rect.x = self.x * TILESIZE
         self.rect.y = self.y * TILESIZE
+        if self.health <= 0:
+            self.kill()
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):
