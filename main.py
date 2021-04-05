@@ -27,11 +27,17 @@ class Game:
         self.mob_img = pg.transform.scale(self.mob_img, (TILESIZE, TILESIZE))
         self.wall_img = pg.image.load(path.join(img_folder, WALL_IMG)).convert_alpha()
         self.wall_img = pg.transform.scale(self.wall_img, (TILESIZE, TILESIZE))
+        self.build_img = pg.image.load(path.join(img_folder, BUILD_IMG)).convert_alpha()
+        self.build_img = pg.transform.scale(self.build_img, (TILESIZE, TILESIZE))
+        self.tree_img = pg.image.load(path.join(img_folder, TREE_IMG)).convert_alpha()
+        self.tree_img = pg.transform.scale(self.tree_img, (TILESIZE, TILESIZE))
 
     def new(self):
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
+        self.builds = pg.sprite.Group()
+        self.trees = pg.sprite.Group()
 #        self.ground = pg.sprite.Group()
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
@@ -41,6 +47,10 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'M':
                     Mob(self, col, row)
+                if tile == 'B':
+                    Build(self, col, row)
+                if tile == 'T':
+                    Tree(self, col, row)
         self.camera = Camera(self.map.width, self.map.height)
 
     def run(self):
@@ -88,9 +98,9 @@ class Game:
 
     def draw_grid(self):
         for x in range(0, WIDTH, TILESIZE):
-            pg.draw.line(self.screen, C7, (x, 0), (x, HEIGHT))
+            pg.draw.line(self.screen, BG_COLOR, (x, 0), (x, HEIGHT))
         for y in range(0, HEIGHT, TILESIZE):
-            pg.draw.line(self.screen, C7, (0, y), (WIDTH, y))
+            pg.draw.line(self.screen, BG_COLOR, (0, y), (WIDTH, y))
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f}".format(TITLE, self.clock.get_fps()))
