@@ -45,12 +45,15 @@ class Game:
         self.wall_img = pg.image.load(path.join(asset_folder, WALL_IMG)).convert_alpha()
         self.wall_img = pg.transform.scale(self.wall_img, (TILESIZE, TILESIZE))
 
+        self.item_images = {}
+        for item in ITEM_IMAGES:
+            self.item_images[item] = pg.image.load(path.join(asset_folder, ITEM_IMAGES[item])).convert_alpha()
+
     def new(self):
-        self.all_sprites = pg.sprite.Group()
+        self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
-        self.builds = pg.sprite.Group()
-        self.trees = pg.sprite.Group()
+        self.items = pg.sprite.Group()
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
@@ -59,6 +62,8 @@ class Game:
                 Mob(self, tile_object.x, tile_object.y)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
+            if tile_object.name in ['heart']:
+                Item(self, tile_object.x, tile_object.y, tile_object.name)
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
 
@@ -107,20 +112,12 @@ class Game:
                 if event.key == pg.K_h:
                     self.draw_debug = not self.draw_debug
 
-    def draw_grid(self):
-        for x in range(0, WIDTH, TILESIZE):
-            pg.draw.line(self.screen, BG_COLOR, (x, 0), (x, HEIGHT))
-        for y in range(0, HEIGHT, TILESIZE):
-            pg.draw.line(self.screen, BG_COLOR, (0, y), (WIDTH, y))
-
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f}".format(TITLE, self.clock.get_fps()))
         # self.screen.fill(BG_COLOR)
         self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
-        # self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
-
         if self.draw_debug:
             for wall in self.walls:
                 pg.draw.rect(self.screen, C2, self.camera.apply_rect(wall.rect), 1)

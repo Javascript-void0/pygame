@@ -21,13 +21,16 @@ BG_COLOR = (71, 45, 60)
 PLAYER_IMG = 'player.png'
 WALL_IMG = 'wall.png'
 MOB_IMG = 'mob.png'
-GROUND_IMG = 'ground.png'
-GROUND1_IMG = 'ground1.png'
-TREE_IMG = 'tree.png'
-TREE1_IMG = 'tree1.png'
-BUILD_IMG = 'build.png'
 
 PLAYER_STRENGTH = 10
 PLAYER_HEALTH = 500
 MOB_STRENGTH = 10
 MOB_HEALTH = 30
+
+PLAYER_LAYER = 3
+MOB_LAYER = 3
+WALL_LAYER = 2
+ITEMS_LAYER = 1
+
+ITEM_IMAGES = {'heart': 'heart.png'}
+HEART_AMOUNT = 50

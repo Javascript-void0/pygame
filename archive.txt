@@ -16,3 +16,10 @@ for row, tiles in enumerate(self.map.data):
         self.build_img = pg.transform.scale(self.build_img, (TILESIZE, TILESIZE))
         self.tree_img = pg.image.load(path.join(asset_folder, TREE_IMG)).convert_alpha()
         self.tree_img = pg.transform.scale(self.tree_img, (TILESIZE, TILESIZE))
+
+
+    def draw_grid(self):
+        for x in range(0, WIDTH, TILESIZE):
+            pg.draw.line(self.screen, BG_COLOR, (x, 0), (x, HEIGHT))
+        for y in range(0, HEIGHT, TILESIZE):
+            pg.draw.line(self.screen, BG_COLOR, (0, y), (WIDTH, y))

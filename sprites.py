@@ -4,6 +4,7 @@ from settings import *
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
+        self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -11,13 +12,16 @@ class Player(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        self.rect.x = self.x * TILESIZE
-        self.rect.y = self.y * TILESIZE
+        self.rect.x = self.x
+        self.rect.y = self.y
 
         self.health = PLAYER_HEALTH
         self.strength = PLAYER_STRENGTH
     
     def move(self, dx = 0, dy = 0):
+        if self.item_collide(dx * TILESIZE, dy * TILESIZE):
+            self.x += dx * TILESIZE
+            self.y += dy * TILESIZE
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
             self.x += dx * TILESIZE
             self.y += dy * TILESIZE
@@ -30,13 +34,19 @@ class Player(pg.sprite.Sprite):
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 mob.health -= self.strength
                 return True
-        for build in self.game.builds:
-            if build.x == self.x + dx and build.y == self.y + dy:
-                return True
-        for tree in self.game.trees:
-            if tree.x == self.x + dx and tree.y == self.y + dy:
-                return True
         return False
+
+    def item_collide(self, dx = 0, dy = 0):
+        for item in self.game.items:
+            if item.x == self.x + dx and item.y == self.y + dy:
+                if item.type == 'heart' and self.health < PLAYER_HEALTH:
+                    item.kill()
+                    self.add_health(HEART_AMOUNT)
+
+    def add_health(self, amount):
+        self.health += amount
+        if self.health > PLAYER_HEALTH:
+            self.health = PLAYER_HEALTH
 
     def update(self):
         self.rect.x = self.x
@@ -46,6 +56,7 @@ class Player(pg.sprite.Sprite):
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y):
+        self._layer = MOB_LAYER
         self.groups = game.all_sprites, game.mobs
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -53,8 +64,8 @@ class Mob(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE
+        self.rect.x = x
+        self.rect.y = y
 
         self.health = MOB_HEALTH
         self.strength = MOB_STRENGTH
@@ -66,15 +77,9 @@ class Mob(pg.sprite.Sprite):
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 return True
-        for build in self.game.builds:
-            if build.x == self.x + dx and build.y == self.y + dy:
-                return True
-        for tree in self.game.trees:
-            if tree.x == self.x + dx and tree.y == self.y + dy:
-                return True
         return False
 
-    def collide_with_player(self, dx = 0, dy = 0):
+    def player_collide(self, dx = 0, dy = 0):
         if self.game.player.x == self.x + dx and self.game.player.y == self.y + dy:
             self.game.player.health -= self.strength
             return True
@@ -98,7 +103,7 @@ class Mob(pg.sprite.Sprite):
                 self.move(dy = random.randint(-1, 1))
 
     def move(self, dx = 0, dy = 0):
-        if not self.collide(dx * TILESIZE, dy * TILESIZE) and not self.collide_with_player(dx * TILESIZE, dy * TILESIZE):
+        if not self.collide(dx * TILESIZE, dy * TILESIZE) and not self.player_collide(dx * TILESIZE, dy * TILESIZE):
             self.x += dx * TILESIZE
             self.y += dy * TILESIZE
             return True
@@ -119,8 +124,8 @@ class Wall(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE
+        self.rect.x = x
+        self.rect.y = y
 
 class Obstacle(pg.sprite.Sprite):
     def __init__(self, game, x, y, w, h):
@@ -130,3 +135,17 @@ class Obstacle(pg.sprite.Sprite):
         self.rect = pg.Rect(x, y, w, h)
         self.x = x
         self.y = y
+
+class Item(pg.sprite.Sprite):
+    def __init__(self, game, x, y, type):
+        self._layer = ITEMS_LAYER
+        self.groups = game.all_sprites, game.items
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = game.item_images[type]
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y
+        self.type = type
