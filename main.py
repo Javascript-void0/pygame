@@ -76,6 +76,7 @@ class Game:
 
         self.player_img = pg.image.load(path.join(asset_folder, PLAYER_IMG)).convert_alpha()
         self.skull_img = pg.image.load(path.join(asset_folder, SKULL_IMG)).convert_alpha()
+        self.chest_img = pg.image.load(path.join(asset_folder, CHEST_IMG)).convert_alpha()
 
         self.item_images = {}
         for item in ITEM_IMAGES:
@@ -89,6 +90,7 @@ class Game:
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
         self.items = pg.sprite.Group()
+        self.chests = pg.sprite.Group()
         self.map = TiledMap(path.join(self.map_folder, 'f.tmx'))
         self.map_img = self.map.make_map()
         self.map_rect = self.map_img.get_rect()
@@ -96,12 +98,14 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y)
-            if tile_object.name in ['mob1', 'mob2']:
+            if tile_object.name in ['mob1', 'mob2', 'mob3']:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
             if tile_object.name in ['heart', 'weapon1', 'weapon2']:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
+            if tile_object.name == 'chest':
+                Chest(self, tile_object.x, tile_object.y)
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
         self.paused = False

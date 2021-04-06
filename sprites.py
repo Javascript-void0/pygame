@@ -24,8 +24,9 @@ class Player(pg.sprite.Sprite):
             self.x += dx * TILESIZE
             self.y += dy * TILESIZE
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
-            self.x += dx * TILESIZE
-            self.y += dy * TILESIZE
+            if not self.chest_collide(dx * TILESIZE, dy * TILESIZE):
+                self.x += dx * TILESIZE
+                self.y += dy * TILESIZE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -43,10 +44,28 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'heart' and self.health < PLAYER_HEALTH:
                     item.kill()
                     self.add_health(HEART_AMOUNT)
+                if item.type == 'weapon1':
+                    item.kill()
+                    self.weapon_img = self.game.item_images['weapon1']
+                    if self.damage < PLAYER_DAMAGE + WEAPON1_AMOUNT:
+                        self.add_damage(WEAPON1_AMOUNT)
                 if item.type == 'weapon2':
                     item.kill()
                     self.weapon_img = self.game.item_images['weapon2']
-                    self.add_damage(WEAPON2_AMOUNT)
+                    if self.damage < PLAYER_DAMAGE + WEAPON2_AMOUNT:
+                        self.add_damage(WEAPON2_AMOUNT)
+
+    def chest_collide(self, dx = 0, dy = 0):
+        for chest in self.game.chests:
+            if chest.x == self.x + dx and chest.y == self.y + dy:
+                chest.kill()
+                self.random_item(self.game, chest.x, chest.y)
+                return True
+        return False
+
+    def random_item(self, game, x, y):
+        item = random.choice(list(self.game.item_images))
+        Item(self.game, x, y, item)
 
     def add_damage(self, amount):
         self.damage = PLAYER_DAMAGE + amount
@@ -80,10 +99,16 @@ class Mob(pg.sprite.Sprite):
         if self.type == 'mob2':
             self.health = MOB2_HEALTH
             self.damage = MOB2_DAMAGE
+        if self.type == 'mob3':
+            self.health = MOB3_HEALTH
+            self.damage = MOB3_DAMAGE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
             if wall.x == self.x + dx and wall.y == self.y + dy:
+                return True
+        for chest in self.game.chests:
+            if chest.x == self.x + dx and chest.y == self.y + dy:
                 return True
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
@@ -161,3 +186,16 @@ class Item(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.type = type
+
+class Chest(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self._layer = PLAYER_LAYER
+        self.groups = game.all_sprites, game.chests
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = game.chest_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y

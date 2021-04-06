@@ -20,8 +20,10 @@ BG_COLOR = (71, 45, 60)
 
 PLAYER_IMG = 'player.png'
 MOB_IMAGES = {'mob1': 'mob1.png',
-              'mob2': 'mob2.png'}
+              'mob2': 'mob2.png',
+              'mob3': 'mob3.png'}
 SKULL_IMG = 'skull.png'
+CHEST_IMG = 'chest.png'
 
 PLAYER_DAMAGE = 10
 PLAYER_HEALTH = 500
@@ -29,6 +31,8 @@ MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
 MOB2_DAMAGE = 20
 MOB2_HEALTH = 20
+MOB3_DAMAGE = 20
+MOB3_HEALTH = 30
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
