@@ -54,6 +54,17 @@ class Game:
             text_rect.center = (x, y)
         self.screen.blit(text_surface, text_rect)
 
+    def draw_player_weapon(self, surf, x, y, weapon):
+        col = C4
+        bg = BG_COLOR
+        self.img_rect = weapon.get_rect()
+        self.outline_rect = pg.Rect(x, y, TILESIZE + 4, TILESIZE + 4)
+        self.img_rect = pg.Rect(x + 2, y + 2, TILESIZE, TILESIZE)
+        self.bg_rect = pg.Rect(x, y, TILESIZE, TILESIZE)
+        pg.draw.rect(surf, bg, self.bg_rect)
+        pg.draw.rect(surf, C1, self.outline_rect, 2)
+        surf.blit(weapon, self.img_rect)
+
     def load_data(self):
         game_folder = path.dirname(__file__)
         asset_folder = path.join(game_folder, 'assets')
@@ -64,11 +75,14 @@ class Game:
         self.dim_screen.fill((0, 0, 0, 180))
 
         self.player_img = pg.image.load(path.join(asset_folder, PLAYER_IMG)).convert_alpha()
-        self.mob_img = pg.image.load(path.join(asset_folder, MOB_IMG)).convert_alpha()    
         self.skull_img = pg.image.load(path.join(asset_folder, SKULL_IMG)).convert_alpha()
+
         self.item_images = {}
         for item in ITEM_IMAGES:
             self.item_images[item] = pg.image.load(path.join(asset_folder, ITEM_IMAGES[item])).convert_alpha()
+        self.mob_images = {}
+        for mob in MOB_IMAGES:
+            self.mob_images[mob] = pg.image.load(path.join(asset_folder, MOB_IMAGES[mob])).convert_alpha()
 
     def new(self):
         self.all_sprites = pg.sprite.LayeredUpdates()
@@ -82,11 +96,11 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y)
-            if tile_object.name == 'mob':
-                Mob(self, tile_object.x, tile_object.y)
+            if tile_object.name in ['mob1', 'mob2']:
+                Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['heart']:
+            if tile_object.name in ['heart', 'weapon1', 'weapon2']:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
@@ -162,6 +176,7 @@ class Game:
             for wall in self.walls:
                 pg.draw.rect(self.screen, C2, self.camera.apply_rect(wall.rect), 1)
         draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
+        self.draw_player_weapon(self.screen, 10, 40, self.player.weapon_img)
         if self.paused:
             self.screen.blit(self.dim_screen, (0, 0))
             self.draw_text("_paused_", self.font, 30, C1, WIDTH /2, HEIGHT / 2, align="center")

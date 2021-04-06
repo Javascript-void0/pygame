@@ -19,19 +19,25 @@ C8 = (142, 160, 145)     # LIGHT BLUE
 BG_COLOR = (71, 45, 60)
 
 PLAYER_IMG = 'player.png'
-WALL_IMG = 'wall.png'
-MOB_IMG = 'mob.png'
+MOB_IMAGES = {'mob1': 'mob1.png',
+              'mob2': 'mob2.png'}
 SKULL_IMG = 'skull.png'
 
-PLAYER_STRENGTH = 10
+PLAYER_DAMAGE = 10
 PLAYER_HEALTH = 500
-MOB_STRENGTH = 10
-MOB_HEALTH = 30
+MOB1_DAMAGE = 10
+MOB1_HEALTH = 30
+MOB2_DAMAGE = 20
+MOB2_HEALTH = 20
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
 WALL_LAYER = 2
 ITEMS_LAYER = 1
 
-ITEM_IMAGES = {'heart': 'heart.png'}
+ITEM_IMAGES = {'heart': 'heart.png',
+               'weapon1': 'weapon1.png',
+               'weapon2': 'weapon2.png'}
 HEART_AMOUNT = 50
+WEAPON1_AMOUNT = 0
+WEAPON2_AMOUNT = 5

@@ -16,7 +16,8 @@ class Player(pg.sprite.Sprite):
         self.rect.y = self.y
 
         self.health = PLAYER_HEALTH
-        self.strength = PLAYER_STRENGTH
+        self.damage = PLAYER_DAMAGE
+        self.weapon_img = game.item_images['weapon1']
     
     def move(self, dx = 0, dy = 0):
         if self.item_collide(dx * TILESIZE, dy * TILESIZE):
@@ -32,7 +33,7 @@ class Player(pg.sprite.Sprite):
                 return True
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
-                mob.health -= self.strength
+                mob.health -= self.damage
                 return True
         return False
 
@@ -42,6 +43,13 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'heart' and self.health < PLAYER_HEALTH:
                     item.kill()
                     self.add_health(HEART_AMOUNT)
+                if item.type == 'weapon2':
+                    item.kill()
+                    self.weapon_img = self.game.item_images['weapon2']
+                    self.add_damage(WEAPON2_AMOUNT)
+
+    def add_damage(self, amount):
+        self.damage = PLAYER_DAMAGE + amount
 
     def add_health(self, amount):
         self.health += amount
@@ -53,20 +61,25 @@ class Player(pg.sprite.Sprite):
         self.rect.y = self.y
 
 class Mob(pg.sprite.Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y, type):
         self._layer = MOB_LAYER
         self.groups = game.all_sprites, game.mobs
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = game.mob_img
+        self.image = game.mob_images[type]
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
         self.rect.x = x
         self.rect.y = y
+        self.type = type
 
-        self.health = MOB_HEALTH
-        self.strength = MOB_STRENGTH
+        if self.type == 'mob1':
+            self.health = MOB1_HEALTH
+            self.damage = MOB1_DAMAGE
+        if self.type == 'mob2':
+            self.health = MOB2_HEALTH
+            self.damage = MOB2_DAMAGE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -79,7 +92,7 @@ class Mob(pg.sprite.Sprite):
 
     def player_collide(self, dx = 0, dy = 0):
         if self.game.player.x == self.x + dx and self.game.player.y == self.y + dy:
-            self.game.player.health -= self.strength
+            self.game.player.health -= self.damage
             return True
         return False
 
