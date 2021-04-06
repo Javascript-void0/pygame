@@ -21,6 +21,7 @@ BG_COLOR = (71, 45, 60)
 PLAYER_IMG = 'player.png'
 WALL_IMG = 'wall.png'
 MOB_IMG = 'mob.png'
+SKULL_IMG = 'skull.png'
 
 PLAYER_STRENGTH = 10
 PLAYER_HEALTH = 500

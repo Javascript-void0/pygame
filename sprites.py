@@ -51,8 +51,6 @@ class Player(pg.sprite.Sprite):
     def update(self):
         self.rect.x = self.x
         self.rect.y = self.y
-        if self.health <= 0:
-            self.kill()
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -114,6 +112,7 @@ class Mob(pg.sprite.Sprite):
         self.rect.y = self.y
         if self.health <= 0:
             self.kill()
+            self.game.map_img.blit(self.game.skull_img, (self.x, self.y))
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):
