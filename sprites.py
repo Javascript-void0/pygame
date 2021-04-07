@@ -20,11 +20,8 @@ class Player(pg.sprite.Sprite):
         self.weapon_img = game.item_images['weapon1']
     
     def move(self, dx = 0, dy = 0):
-        if self.item_collide(dx * TILESIZE, dy * TILESIZE):
-            self.x += dx * TILESIZE
-            self.y += dy * TILESIZE
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
-            if not self.chest_collide(dx * TILESIZE, dy * TILESIZE):
+            if not self.chest_collide(dx * TILESIZE, dy * TILESIZE) and not self.sign_collide(dx * TILESIZE, dy * TILESIZE):
                 self.x += dx * TILESIZE
                 self.y += dy * TILESIZE
 
@@ -38,28 +35,55 @@ class Player(pg.sprite.Sprite):
                 return True
         return False
 
-    def item_collide(self, dx = 0, dy = 0):
+    def item_ontop(self, x, y):
         for item in self.game.items:
-            if item.x == self.x + dx and item.y == self.y + dy:
+            if item.x == self.x and item.y == self.y:
                 if item.type == 'heart' and self.health < PLAYER_HEALTH:
                     item.kill()
                     self.add_health(HEART_AMOUNT)
                 if item.type == 'weapon1':
                     item.kill()
-                    self.weapon_img = self.game.item_images['weapon1']
                     if self.damage < PLAYER_DAMAGE + WEAPON1_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon1']
                         self.add_damage(WEAPON1_AMOUNT)
                 if item.type == 'weapon2':
                     item.kill()
-                    self.weapon_img = self.game.item_images['weapon2']
                     if self.damage < PLAYER_DAMAGE + WEAPON2_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon2']
                         self.add_damage(WEAPON2_AMOUNT)
+                if item.type == 'weapon3':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON3_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon3']
+                        self.add_damage(WEAPON3_AMOUNT)
+                if item.type == 'weapon4':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON4_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon4']
+                        self.add_damage(WEAPON4_AMOUNT)
+                if item.type == 'weapon5':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON5_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon5']
+                        self.add_damage(WEAPON5_AMOUNT)
+                if item.type == 'weapon6':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon6']
+                        self.add_damage(WEAPON6_AMOUNT)
 
     def chest_collide(self, dx = 0, dy = 0):
         for chest in self.game.chests:
             if chest.x == self.x + dx and chest.y == self.y + dy:
                 chest.kill()
                 self.random_item(self.game, chest.x, chest.y)
+                return True
+        return False
+
+    def sign_collide(self, dx = 0, dy = 0):
+        for sign in self.game.signs:
+            if sign.x == self.x + dx and sign.y == self.y + dy:
+                print(sign.text)
                 return True
         return False
 
@@ -78,6 +102,9 @@ class Player(pg.sprite.Sprite):
     def update(self):
         self.rect.x = self.x
         self.rect.y = self.y
+        if self.item_ontop(self.x, self.y):
+            self.x += dx * TILESIZE
+            self.y += dy * TILESIZE
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y, type):
@@ -113,6 +140,9 @@ class Mob(pg.sprite.Sprite):
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 return True
+        for sign in self.game.signs:
+            if sign.x == self.x + dx and sign.y == self.y + dy:
+                return True
         return False
 
     def player_collide(self, dx = 0, dy = 0):
@@ -145,12 +175,19 @@ class Mob(pg.sprite.Sprite):
             return True
         return False
 
+    def check_item(self, x, y):
+        for item in self.game.items:
+            if item.x == self.x and item.y == self.y:
+                return True
+        return False
+
     def update(self):
         self.rect.x = self.x
         self.rect.y = self.y
         if self.health <= 0:
             self.kill()
-            self.game.map_img.blit(self.game.skull_img, (self.x, self.y))
+            if not self.check_item(self.x, self.y):
+                self.game.map_img.blit(self.game.skull_img, (self.x, self.y))
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -199,3 +236,17 @@ class Chest(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x
         self.rect.y = y
+
+class Sign(pg.sprite.Sprite):
+    def __init__(self, game, x, y, text):
+        self._layer = WALL_LAYER
+        self.groups = game.all_sprites, game.signs
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = game.sign_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y
+        self.text = text

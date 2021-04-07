@@ -15,10 +15,8 @@ def draw_player_health(surf, x, y, pct):
     outline_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
     fill_rect = pg.Rect(x, y, fill, BAR_HEIGHT)
     bg_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
-    col = C4
-    bg = BG_COLOR
-    pg.draw.rect(surf, bg, bg_rect)
-    pg.draw.rect(surf, col, fill_rect)
+    pg.draw.rect(surf, BG_COLOR, bg_rect)
+    pg.draw.rect(surf, C4, fill_rect)
     pg.draw.rect(surf, C1, outline_rect, 2)
 
 class Game:
@@ -77,6 +75,7 @@ class Game:
         self.player_img = pg.image.load(path.join(asset_folder, PLAYER_IMG)).convert_alpha()
         self.skull_img = pg.image.load(path.join(asset_folder, SKULL_IMG)).convert_alpha()
         self.chest_img = pg.image.load(path.join(asset_folder, CHEST_IMG)).convert_alpha()
+        self.sign_img = pg.image.load(path.join(asset_folder, SIGN_IMG)).convert_alpha()
 
         self.item_images = {}
         for item in ITEM_IMAGES:
@@ -91,6 +90,7 @@ class Game:
         self.mobs = pg.sprite.Group()
         self.items = pg.sprite.Group()
         self.chests = pg.sprite.Group()
+        self.signs = pg.sprite.Group()
         self.map = TiledMap(path.join(self.map_folder, 'f.tmx'))
         self.map_img = self.map.make_map()
         self.map_rect = self.map_img.get_rect()
@@ -102,10 +102,14 @@ class Game:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['heart', 'weapon1', 'weapon2']:
+            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6']:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)
+            if 'sign' in tile_object.name:
+                self.sign_texts = {}
+                for text in SIGN_TEXTS:
+                    self.sign_texts[text] = Sign(self, tile_object.x, tile_object.y, SIGN_TEXTS[tile_object.name])
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
         self.paused = False

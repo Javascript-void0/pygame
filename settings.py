@@ -24,9 +24,12 @@ MOB_IMAGES = {'mob1': 'mob1.png',
               'mob3': 'mob3.png'}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
+SIGN_IMG = 'sign.png'
+SIGN_TEXTS = {'sign1': 'Welcome :D',
+              'sign2': 'Made by Java :3'}
 
 PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 500
+PLAYER_HEALTH = 5000
 MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
 MOB2_DAMAGE = 20
@@ -41,7 +44,15 @@ ITEMS_LAYER = 1
 
 ITEM_IMAGES = {'heart': 'heart.png',
                'weapon1': 'weapon1.png',
-               'weapon2': 'weapon2.png'}
+               'weapon2': 'weapon2.png',
+               'weapon3': 'weapon3.png',
+               'weapon4': 'weapon4.png',
+               'weapon5': 'weapon5.png',
+               'weapon6': 'weapon6.png'}
 HEART_AMOUNT = 50
 WEAPON1_AMOUNT = 0
 WEAPON2_AMOUNT = 5
+WEAPON3_AMOUNT = 10
+WEAPON4_AMOUNT = 5
+WEAPON5_AMOUNT = 10
+WEAPON6_AMOUNT = 15

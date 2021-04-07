@@ -23,3 +23,20 @@ for row, tiles in enumerate(self.map.data):
             pg.draw.line(self.screen, BG_COLOR, (x, 0), (x, HEIGHT))
         for y in range(0, HEIGHT, TILESIZE):
             pg.draw.line(self.screen, BG_COLOR, (0, y), (WIDTH, y))
+
+    def sign_collide(self, dx = 0, dy = 0):
+        for sign in self.game.signs:
+            if sign.x == self.x + dx and sign.y == self.y + dy:
+                print('yes')
+                return True
+        return Falses
+
+
+    def draw_dialogue(self, surf, text):
+        BAR_LENGTH = WIDTH - 20
+        BAR_HEIGHT = (HEIGHT / 4) - 20
+        self.rect = pg.Rect(10, 394, BAR_LENGTH, BAR_HEIGHT)
+        self.outline_rect = pg.Rect(10, 394, BAR_LENGTH, BAR_HEIGHT)
+        pg.draw.rect(surf, C5, self.rect)
+        pg.draw.rect(surf, C1, self.outline_rect, 2)
+        self.draw_text(text, self.font, 17, C1, 20, 404, align="nw")
