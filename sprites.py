@@ -18,6 +18,8 @@ class Player(pg.sprite.Sprite):
         self.health = PLAYER_HEALTH
         self.damage = PLAYER_DAMAGE
         self.weapon_img = game.item_images['weapon1']
+        self.coins = int(self.game.data[0])
+        self.keys = int(self.game.data[1])
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
@@ -41,6 +43,12 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'heart' and self.health < PLAYER_HEALTH:
                     item.kill()
                     self.add_health(HEART_AMOUNT)
+                if item.type == 'coin':
+                    item.kill()
+                    self.coins += 1
+                if item.type == 'key':
+                    item.kill()
+                    self.keys += 1
                 if item.type == 'weapon1':
                     item.kill()
                     if self.damage < PLAYER_DAMAGE + WEAPON1_AMOUNT:
@@ -186,6 +194,7 @@ class Mob(pg.sprite.Sprite):
         self.rect.y = self.y
         if self.health <= 0:
             self.kill()
+            self.game.player.coins += 1
             if not self.check_item(self.x, self.y):
                 self.game.map_img.blit(self.game.skull_img, (self.x, self.y))
 

@@ -1,4 +1,4 @@
-TITLE = 'RPG'
+TITLE = '_ROGUELIKE_'
 WIDTH = 512
 HEIGHT = 512
 FPS = 60
@@ -29,7 +29,7 @@ SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign2': 'Made by Java :3'}
 
 PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 5000
+PLAYER_HEALTH = 500
 MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
 MOB2_DAMAGE = 20
@@ -43,6 +43,8 @@ WALL_LAYER = 2
 ITEMS_LAYER = 1
 
 ITEM_IMAGES = {'heart': 'heart.png',
+               'coin': 'coin.png',
+               'key': 'key.png',
                'weapon1': 'weapon1.png',
                'weapon2': 'weapon2.png',
                'weapon3': 'weapon3.png',
