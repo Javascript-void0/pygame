@@ -80,6 +80,16 @@ class Player(pg.sprite.Sprite):
                     if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
                         self.weapon_img = self.game.item_images['weapon6']
                         self.add_damage(WEAPON6_AMOUNT)
+                if item.type == 'weapon7':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon7']
+                        self.add_damage(WEAPON7_AMOUNT)
+                if item.type == 'weapon8':
+                    item.kill()
+                    if self.damage < PLAYER_DAMAGE + WEAPON8_AMOUNT:
+                        self.weapon_img = self.game.item_images['weapon8']
+                        self.add_damage(WEAPON8_AMOUNT)
                 if item.type == 'armor1':
                     item.kill()
                     self.armor += ARMOR1_AMOUNT
@@ -156,6 +166,9 @@ class Mob(pg.sprite.Sprite):
         if self.type == 'mob3':
             self.health = MOB3_HEALTH
             self.damage = MOB3_DAMAGE
+        if self.type == 'mob4':
+            self.health = MOB4_HEALTH
+            self.damage = MOB4_DAMAGE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:

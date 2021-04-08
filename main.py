@@ -144,11 +144,11 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y)
-            if tile_object.name in ['mob1', 'mob2', 'mob3']:
+            if tile_object.name in ['mob1', 'mob2', 'mob3', 'mob4']:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6', 'key', 'coin', 'armor1', 'armor2', 'armor3']:
+            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6', 'weapon7', 'weapon8', 'key', 'coin', 'armor1', 'armor2', 'armor3']:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)
@@ -201,19 +201,19 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     self.quit()
-                if event.key == pg.K_a:
+                if event.key == pg.K_a or event.key == pg.K_LEFT:
                     self.player.move(dx = -1)
                     for mob in self.mobs:
                         mob.move_toward()
-                if event.key == pg.K_d:
+                if event.key == pg.K_d or event.key == pg.K_RIGHT:
                     self.player.move(dx = 1)
                     for mob in self.mobs:
                         mob.move_toward()
-                if event.key == pg.K_w:
+                if event.key == pg.K_w or event.key == pg.K_UP:
                     self.player.move(dy = -1)
                     for mob in self.mobs:
                         mob.move_toward()
-                if event.key == pg.K_s:
+                if event.key == pg.K_s or event.key == pg.K_DOWN:
                     self.player.move(dy = 1)
                     for mob in self.mobs:
                         mob.move_toward()
@@ -238,7 +238,7 @@ class Game:
         self.draw_coins(self.screen, (WIDTH / 2), 10, self.player.coins)
         if self.paused:
             self.screen.blit(self.dim_screen, (0, 0))
-            self.draw_text("paused", self.font, 30, C1, WIDTH /2, HEIGHT / 2, align="center")
+            self.draw_text("paused", self.font, 30, C1, WIDTH / 2, HEIGHT / 2, align="center")
         pg.display.flip()
 
     def show_start_screen(self):

@@ -1,6 +1,6 @@
-TITLE = '_ROGUELIKE_'
+TITLE = 'ROGUELIKE'
 WIDTH = 512
-HEIGHT = 512
+HEIGHT = 1024
 FPS = 60
 
 TILESIZE = 32
@@ -21,7 +21,8 @@ BG_COLOR = (71, 45, 60)
 PLAYER_IMG = 'player.png'
 MOB_IMAGES = {'mob1': 'mob1.png',
               'mob2': 'mob2.png',
-              'mob3': 'mob3.png'}
+              'mob3': 'mob3.png',
+              'mob4': 'mob4.png'}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
@@ -37,6 +38,8 @@ MOB2_DAMAGE = 20
 MOB2_HEALTH = 20
 MOB3_DAMAGE = 20
 MOB3_HEALTH = 30
+MOB4_DAMAGE = 20
+MOB4_HEALTH = 50
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
@@ -52,6 +55,8 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'weapon4': 'weapon4.png',
                'weapon5': 'weapon5.png',
                'weapon6': 'weapon6.png',
+               'weapon7': 'weapon7.png',
+               'weapon8': 'weapon8.png',
                'armor1': 'armor1.png',
                'armor2': 'armor2.png',
                'armor3': 'armor3.png'}
@@ -62,6 +67,8 @@ WEAPON3_AMOUNT = 10
 WEAPON4_AMOUNT = 5
 WEAPON5_AMOUNT = 10
 WEAPON6_AMOUNT = 15
+WEAPON7_AMOUNT = 20
+WEAPON8_AMOUNT = 20
 ARMOR1_AMOUNT = 2
 ARMOR2_AMOUNT = 4
 ARMOR3_AMOUNT = 6
