@@ -29,7 +29,8 @@ SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign2': 'Made by Java :3'}
 
 PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 500
+PLAYER_HEALTH = 5000
+PLAYER_ARMOR = 5
 MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
 MOB2_DAMAGE = 20
@@ -50,7 +51,10 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'weapon3': 'weapon3.png',
                'weapon4': 'weapon4.png',
                'weapon5': 'weapon5.png',
-               'weapon6': 'weapon6.png'}
+               'weapon6': 'weapon6.png',
+               'armor1': 'armor1.png',
+               'armor2': 'armor2.png',
+               'armor3': 'armor3.png'}
 HEART_AMOUNT = 50
 WEAPON1_AMOUNT = 0
 WEAPON2_AMOUNT = 5
@@ -58,3 +62,6 @@ WEAPON3_AMOUNT = 10
 WEAPON4_AMOUNT = 5
 WEAPON5_AMOUNT = 10
 WEAPON6_AMOUNT = 15
+ARMOR1_AMOUNT = 2
+ARMOR2_AMOUNT = 4
+ARMOR3_AMOUNT = 6

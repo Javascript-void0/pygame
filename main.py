@@ -6,19 +6,6 @@ from settings import *
 from sprites import *
 from tilemap import *
 
-def draw_player_health(surf, x, y, pct):
-    if pct < 0:
-        pct = 0
-    BAR_LENGTH = 100
-    BAR_HEIGHT = 20
-    fill = pct * BAR_LENGTH
-    outline_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
-    fill_rect = pg.Rect(x, y, fill, BAR_HEIGHT)
-    bg_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
-    pg.draw.rect(surf, BG_COLOR, bg_rect)
-    pg.draw.rect(surf, C4, fill_rect)
-    pg.draw.rect(surf, C1, outline_rect, 2)
-
 class Game:
     def __init__(self):
         pg.init()
@@ -84,6 +71,29 @@ class Game:
         surf.blit(self.coin_img, (x + 6, y + 6))
         self.draw_text(f'x{num}', self.font, 10, C1, x + 19, y + 40, align="center")
 
+    def draw_player_health(self, surf, x, y, pct):
+        if pct < 0:
+            pct = 0
+        fill = pct * 100
+        self.outline_rect = pg.Rect(x, y, 100, 20)
+        self.fill_rect = pg.Rect(x, y, fill, 20)
+        self.bg_rect = pg.Rect(x, y, 100, 20)
+        pg.draw.rect(surf, BG_COLOR, self.bg_rect)
+        pg.draw.rect(surf, C4, self.fill_rect)
+        pg.draw.rect(surf, C1, self.outline_rect, 2)
+        self.draw_text(f'~{self.player.health}', self.font, 10, C1, x + 10 , y + 10, align="w")
+
+    def draw_player_armor(self, surf, x, y, pct):
+        if pct < 0:
+            pct = 0
+        fill = pct * 67
+        self.outline_rect = pg.Rect(x, y, 67, 10)
+        self.fill_rect = pg.Rect(x, y, fill, 10)
+        self.bg_rect = pg.Rect(x, y, 67, 10)
+        pg.draw.rect(surf, BG_COLOR, self.bg_rect)
+        pg.draw.rect(surf, C8, self.fill_rect)
+        pg.draw.rect(surf, C1, self.outline_rect, 2)
+
     def load_data(self):
         game_folder = path.dirname(__file__)
         asset_folder = path.join(game_folder, 'assets')
@@ -113,10 +123,9 @@ class Game:
             if i % 2 == 0:
                 self.data.remove(self.data[i])
 
-    def save_user_data(self, coins, keys):
+    def save_user_data(self, coins):
         data = open("user_data.txt", "r").readlines()
         data[1] = str(coins) + '\n'
-        data[3] = str(keys) + '\n'
         out = open("user_data.txt", "w")
         out.writelines(data)
         out.close()
@@ -139,7 +148,7 @@ class Game:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6', 'key', 'coin']:
+            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6', 'key', 'coin', 'armor1', 'armor2', 'armor3']:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)
@@ -164,7 +173,7 @@ class Game:
 
     def quit(self):
         self.running = False
-        self.save_user_data(self.player.coins, self.player.keys)
+        self.save_user_data(self.player.coins)
         pg.quit()
         sys.exit()
 
@@ -180,7 +189,7 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:
                 self.paused = not self.paused
-                self.save_user_data(self.player.coins, self.player.keys)
+                self.save_user_data(self.player.coins)
 
     def events(self):
         for event in pg.event.get():
@@ -222,10 +231,11 @@ class Game:
         if self.draw_debug:
             for wall in self.walls:
                 pg.draw.rect(self.screen, C2, self.camera.apply_rect(wall.rect), 1)
-        draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
-        self.draw_player_weapon(self.screen, 10, 40, self.player.weapon_img)
-        self.draw_keys(self.screen, (WIDTH / 2) - TILESIZE - 10, 20, self.player.keys)
-        self.draw_coins(self.screen, (WIDTH / 2), 20, self.player.coins)
+        self.draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
+        self.draw_player_armor(self.screen, 43, 30, self.player.armor / PLAYER_ARMOR)
+        self.draw_player_weapon(self.screen, 10, 30, self.player.weapon_img)
+        self.draw_keys(self.screen, (WIDTH / 2) - TILESIZE - 10, 10, self.player.keys)
+        self.draw_coins(self.screen, (WIDTH / 2), 10, self.player.coins)
         if self.paused:
             self.screen.blit(self.dim_screen, (0, 0))
             self.draw_text("paused", self.font, 30, C1, WIDTH /2, HEIGHT / 2, align="center")

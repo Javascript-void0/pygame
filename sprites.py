@@ -17,9 +17,10 @@ class Player(pg.sprite.Sprite):
 
         self.health = PLAYER_HEALTH
         self.damage = PLAYER_DAMAGE
+        self.armor = PLAYER_ARMOR
         self.weapon_img = game.item_images['weapon1']
         self.coins = int(self.game.data[0])
-        self.keys = int(self.game.data[1])
+        self.keys = 0
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
@@ -79,12 +80,30 @@ class Player(pg.sprite.Sprite):
                     if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
                         self.weapon_img = self.game.item_images['weapon6']
                         self.add_damage(WEAPON6_AMOUNT)
+                if item.type == 'armor1':
+                    item.kill()
+                    self.armor += ARMOR1_AMOUNT
+                    if self.armor > PLAYER_ARMOR:
+                        self.armor = PLAYER_ARMOR
+                if item.type == 'armor2':
+                    item.kill()
+                    self.armor += ARMOR2_AMOUNT
+                    if self.armor > PLAYER_ARMOR:
+                        self.armor = PLAYER_ARMOR
+                if item.type == 'armor3':
+                    item.kill()
+                    self.armor += ARMOR3_AMOUNT
+                    if self.armor > PLAYER_ARMOR:
+                        self.armor = PLAYER_ARMOR
 
     def chest_collide(self, dx = 0, dy = 0):
         for chest in self.game.chests:
             if chest.x == self.x + dx and chest.y == self.y + dy:
-                chest.kill()
-                self.random_item(self.game, chest.x, chest.y)
+                if self.keys > 0:
+                    chest.kill()
+                    self.random_item(self.game, chest.x, chest.y)
+                    self.keys -= 1
+                    return True
                 return True
         return False
 
@@ -155,7 +174,10 @@ class Mob(pg.sprite.Sprite):
 
     def player_collide(self, dx = 0, dy = 0):
         if self.game.player.x == self.x + dx and self.game.player.y == self.y + dy:
-            self.game.player.health -= self.damage
+            if self.game.player.armor > 0:
+                self.game.player.armor -= 1
+            else:
+                self.game.player.health -= self.damage
             return True
         return False
 
