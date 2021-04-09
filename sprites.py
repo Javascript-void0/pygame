@@ -3,7 +3,7 @@ import random
 from settings import *
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -15,18 +15,20 @@ class Player(pg.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.health = PLAYER_HEALTH
-        self.damage = PLAYER_DAMAGE
-        self.armor = PLAYER_ARMOR
-        self.weapon_img = game.item_images['weapon1']
+        self.health = health
+        self.damage = damage
+        self.armor = armor
+        try:
+            self.weapon_img = game.item_images[weapon]
+        except KeyError:
+            self.weapon_img = weapon
         self.coins = int(self.game.data[0])
-        self.keys = 0
+        self.keys = keys
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
-            if not self.chest_collide(dx * TILESIZE, dy * TILESIZE) and not self.sign_collide(dx * TILESIZE, dy * TILESIZE):
-                self.x += dx * TILESIZE
-                self.y += dy * TILESIZE
+            self.x += dx * TILESIZE
+            self.y += dy * TILESIZE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -35,6 +37,23 @@ class Player(pg.sprite.Sprite):
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 mob.health -= self.damage
+                return True
+        for chest in self.game.chests:
+            if chest.x == self.x + dx and chest.y == self.y + dy:
+                if self.keys > 0:
+                    chest.kill()
+                    self.random_item(self.game, chest.x, chest.y)
+                    self.keys -= 1
+                    return True
+                return True
+        for sign in self.game.signs:
+            if sign.x == self.x + dx and sign.y == self.y + dy:
+                print(sign.text)
+                return True
+        for travel in self.game.travels:
+            if travel.x == self.x + dx and travel.y == self.y + dy:
+                self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                self.game.run()
                 return True
         return False
 
@@ -52,84 +71,51 @@ class Player(pg.sprite.Sprite):
                     self.keys += 1
                 if item.type == 'weapon1':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON1_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon1']
-                        self.add_damage(WEAPON1_AMOUNT)
+                    self.better_damage(item.type, WEAPON1_AMOUNT)
                 if item.type == 'weapon2':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON2_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon2']
-                        self.add_damage(WEAPON2_AMOUNT)
+                    self.better_damage(item.type, WEAPON2_AMOUNT)
                 if item.type == 'weapon3':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON3_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon3']
-                        self.add_damage(WEAPON3_AMOUNT)
+                    self.better_damage(item.type, WEAPON3_AMOUNT)
                 if item.type == 'weapon4':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON4_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon4']
-                        self.add_damage(WEAPON4_AMOUNT)
+                    self.better_damage(item.type, WEAPON4_AMOUNT)
                 if item.type == 'weapon5':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON5_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon5']
-                        self.add_damage(WEAPON5_AMOUNT)
+                    self.better_damage(item.type, WEAPON5_AMOUNT)
                 if item.type == 'weapon6':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon6']
-                        self.add_damage(WEAPON6_AMOUNT)
+                    self.better_damage(item.type, WEAPON6_AMOUNT)
                 if item.type == 'weapon7':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON6_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon7']
-                        self.add_damage(WEAPON7_AMOUNT)
+                    self.better_damage(item.type, WEAPON7_AMOUNT)
                 if item.type == 'weapon8':
                     item.kill()
-                    if self.damage < PLAYER_DAMAGE + WEAPON8_AMOUNT:
-                        self.weapon_img = self.game.item_images['weapon8']
-                        self.add_damage(WEAPON8_AMOUNT)
+                    self.better_damage(item.type, WEAPON8_AMOUNT)
                 if item.type == 'armor1':
                     item.kill()
-                    self.armor += ARMOR1_AMOUNT
-                    if self.armor > PLAYER_ARMOR:
-                        self.armor = PLAYER_ARMOR
+                    self.armor_amount(ARMOR1_AMOUNT)
                 if item.type == 'armor2':
                     item.kill()
-                    self.armor += ARMOR2_AMOUNT
-                    if self.armor > PLAYER_ARMOR:
-                        self.armor = PLAYER_ARMOR
+                    self.armor_amount(ARMOR2_AMOUNT)
                 if item.type == 'armor3':
                     item.kill()
-                    self.armor += ARMOR3_AMOUNT
-                    if self.armor > PLAYER_ARMOR:
-                        self.armor = PLAYER_ARMOR
-
-    def chest_collide(self, dx = 0, dy = 0):
-        for chest in self.game.chests:
-            if chest.x == self.x + dx and chest.y == self.y + dy:
-                if self.keys > 0:
-                    chest.kill()
-                    self.random_item(self.game, chest.x, chest.y)
-                    self.keys -= 1
-                    return True
-                return True
-        return False
-
-    def sign_collide(self, dx = 0, dy = 0):
-        for sign in self.game.signs:
-            if sign.x == self.x + dx and sign.y == self.y + dy:
-                print(sign.text)
-                return True
-        return False
+                    self.armor_amount(ARMOR3_AMOUNT)
 
     def random_item(self, game, x, y):
         item = random.choice(list(self.game.item_images))
         Item(self.game, x, y, item)
 
-    def add_damage(self, amount):
-        self.damage = PLAYER_DAMAGE + amount
+    def better_damage(self, img, amount):
+        if self.damage < PLAYER_DAMAGE + amount:
+            self.weapon_img = self.game.item_images[img]
+            self.damage = PLAYER_DAMAGE + amount
+
+    def armor_amount(self, amount):
+        self.armor += amount
+        if self.armor > PLAYER_ARMOR:
+            self.armor = PLAYER_ARMOR
 
     def add_health(self, amount):
         self.health += amount
@@ -182,6 +168,9 @@ class Mob(pg.sprite.Sprite):
                 return True
         for sign in self.game.signs:
             if sign.x == self.x + dx and sign.y == self.y + dy:
+                return True
+        for travel in self.game.travels:
+            if travel.x == self.x + dx and travel.y == self.y + dy:
                 return True
         return False
 
@@ -294,3 +283,13 @@ class Sign(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.text = text
+
+class Travel(pg.sprite.Sprite):
+    def __init__(self, game, x, y, w, h, name):
+        self.groups = game.travels
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.rect = pg.Rect(x, y, w, h)
+        self.x = x
+        self.y = y
+        self.name = name

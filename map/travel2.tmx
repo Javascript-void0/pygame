@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="215">
+ <tileset firstgid="1" source="../../../../../Downloads/32x32.tsx"/>
+ <layer id="1" name="Ground" width="16" height="24" locked="1">
+  <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,5,1,3,1,1,2,
+5,1,1,1,3,1,3,1,2,3,1,3,1,3,2,5,
+1,1,1,1,3,1,4,3,3,3,1,2,1,1,4,1,
+1,2,1,1,1,3,5,2,2,1,3,3,1,3,1,1,
+5,1,4,1,1,1,1,1,3,1,3,2,1,4,4,1,
+1,1,1,1,3,3,3,2,1,3,5,3,3,1,3,1,
+1,5,1,1,1,1,3,1,1,3,3,5,1,3,1,1,
+1,1,1,1,1,3,1,4,1,1,1,4,3,5,1,1,
+1,1,2,1,1,1,1,1,3,3,3,3,1,1,1,3,
+1,1,1,1,1,1,1,1,3,1,4,3,1,3,1,5,
+1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,
+1,1,2,1,1,1,1,1,4,1,1,1,1,1,1,1,
+1,5,1,1,1,1,1,5,1,1,1,1,4,1,1,1,
+1,1,5,1,1,1,3,1,1,1,1,1,1,1,4,1,
+1,1,1,1,1,2,1,1,5,1,1,2,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,
+1,1,1,4,1,1,1,1,1,1,4,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,
+1,1,1,1,1,1,1,1,1,2,1,1,1,2,1,2,
+1,1,1,1,5,1,1,1,1,1,1,5,1,1,1,4,
+1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,
+1,1,4,1,1,1,1,1,5,1,1,5,1,1,1,1,
+1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1
+</data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="16" height="24">
+  <data encoding="csv">
+641,642,642,642,642,147,642,642,642,642,642,642,642,642,642,643,
+301,303,303,301,301,147,0,97,0,0,103,0,0,0,0,691,
+0,0,0,308,0,147,0,56,0,0,97,0,103,103,0,691,
+301,305,303,303,303,147,6,0,0,0,0,0,55,6,97,691,
+0,0,0,0,0,147,55,0,0,97,103,0,0,0,0,691,
+303,302,301,303,303,147,0,0,6,6,55,0,56,0,55,691,
+0,0,308,0,0,147,0,0,56,0,0,0,55,55,103,691,
+303,303,303,301,301,147,0,0,55,103,0,0,0,0,97,691,
+146,146,146,148,146,147,0,0,0,0,0,0,578,103,0,691,
+689,291,2684354617,3758096443,2684354617,1610612793,2684354618,0,0,0,254,1610612989,626,531,531,531,
+689,102,0,103,56,0,3221225529,0,0,0,3221225725,0,625,627,625,627,
+689,56,0,55,673,118,3221225529,0,0,0,3221225725,0,58,2684354617,2684354617,2684354617,
+689,0,56,0,0,103,1610612794,2684354617,2684354617,257,247,257,2147483707,0,0,691,
+689,731,732,732,733,55,0,0,0,102,3221225725,0,57,0,0,691,
+689,779,780,780,781,6,0,0,254,2684354813,3221225726,769,3221225765,770,770,770,
+2684354617,2684354617,2684354617,2684354617,2684354617,2147483706,0,0,253,0,0,817,818,818,818,818,
+770,771,925,973,974,1073741882,2684354617,248,247,248,248,2147483939,818,818,818,818,
+818,819,0,0,0,0,0,0,253,0,769,821,818,818,769,770,
+818,820,771,0,0,0,0,0,253,0,817,818,818,769,821,818,
+818,818,819,0,0,495,0,0,1610612990,2684354813,817,818,769,821,818,818,
+818,818,819,0,0,0,0,0,0,0,817,818,817,818,818,868,
+818,818,820,771,0,0,0,0,0,0,817,818,817,818,818,818,
+818,818,818,819,0,0,0,769,770,770,821,818,817,818,868,818,
+818,818,818,820,770,770,770,821,818,769,770,770,821,818,818,818
+</data>
+ </layer>
+ <objectgroup id="3" name="Object Layer 1">
+  <object id="1" name="wall" x="480" y="416" width="32" height="32"/>
+  <object id="5" name="wall" x="480" y="448" width="32" height="32"/>
+  <object id="8" name="wall" x="480" y="544" width="32" height="32"/>
+  <object id="9" name="wall" x="480" y="576" width="32" height="32"/>
+  <object id="10" name="wall" x="480" y="608" width="32" height="32"/>
+  <object id="11" name="wall" x="480" y="640" width="32" height="32"/>
+  <object id="12" name="wall" x="480" y="672" width="32" height="32"/>
+  <object id="13" name="wall" x="480" y="704" width="32" height="32"/>
+  <object id="14" name="wall" x="480" y="736" width="32" height="32"/>
+  <object id="15" name="wall" x="448" y="736" width="32" height="32"/>
+  <object id="16" name="wall" x="416" y="736" width="32" height="32"/>
+  <object id="17" name="wall" x="352" y="736" width="32" height="32"/>
+  <object id="18" name="wall" x="320" y="736" width="32" height="32"/>
+  <object id="19" name="wall" x="384" y="736" width="32" height="32"/>
+  <object id="20" name="wall" x="288" y="736" width="32" height="32"/>
+  <object id="21" name="wall" x="256" y="736" width="32" height="32"/>
+  <object id="22" name="wall" x="224" y="736" width="32" height="32"/>
+  <object id="23" name="wall" x="192" y="736" width="32" height="32"/>
+  <object id="24" name="wall" x="160" y="736" width="32" height="32"/>
+  <object id="25" name="wall" x="128" y="736" width="32" height="32"/>
+  <object id="26" name="wall" x="96" y="736" width="32" height="32"/>
+  <object id="27" name="wall" x="64" y="736" width="32" height="32"/>
+  <object id="28" name="wall" x="32" y="736" width="32" height="32"/>
+  <object id="29" name="wall" x="0" y="736" width="32" height="32"/>
+  <object id="30" name="wall" x="0" y="704" width="32" height="32"/>
+  <object id="31" name="wall" x="0" y="608" width="32" height="32"/>
+  <object id="32" name="wall" x="0" y="672" width="32" height="32"/>
+  <object id="33" name="wall" x="0" y="640" width="32" height="32"/>
+  <object id="34" name="wall" x="0" y="576" width="32" height="32"/>
+  <object id="35" name="wall" x="0" y="544" width="32" height="32"/>
+  <object id="36" name="wall" x="0" y="512" width="32" height="32"/>
+  <object id="37" name="wall" x="-32" y="480" width="32" height="32"/>
+  <object id="38" name="wall" x="0" y="448" width="32" height="32"/>
+  <object id="39" name="wall" x="0" y="416" width="32" height="32"/>
+  <object id="40" name="wall" x="0" y="384" width="32" height="32"/>
+  <object id="41" name="wall" x="0" y="352" width="32" height="32"/>
+  <object id="42" name="wall" x="0" y="320" width="32" height="32"/>
+  <object id="43" name="wall" x="0" y="288" width="32" height="32"/>
+  <object id="44" name="wall" x="0" y="0" width="32" height="32"/>
+  <object id="45" name="wall" x="64" y="0" width="32" height="32"/>
+  <object id="46" name="wall" x="32" y="0" width="32" height="32"/>
+  <object id="47" name="wall" x="96" y="0" width="32" height="32"/>
+  <object id="48" name="wall" x="128" y="0" width="32" height="32"/>
+  <object id="49" name="wall" x="160" y="0" width="32" height="32"/>
+  <object id="50" name="wall" x="192" y="0" width="32" height="32"/>
+  <object id="51" name="wall" x="224" y="0" width="32" height="32"/>
+  <object id="52" name="wall" x="256" y="0" width="32" height="32"/>
+  <object id="53" name="wall" x="288" y="0" width="32" height="32"/>
+  <object id="54" name="wall" x="320" y="0" width="32" height="32"/>
+  <object id="55" name="wall" x="352" y="0" width="32" height="32"/>
+  <object id="56" name="wall" x="384" y="0" width="32" height="32"/>
+  <object id="57" name="wall" x="416" y="0" width="32" height="32"/>
+  <object id="58" name="wall" x="448" y="0" width="32" height="32"/>
+  <object id="59" name="wall" x="480" y="0" width="32" height="32"/>
+  <object id="60" name="wall" x="480" y="288" width="32" height="32"/>
+  <object id="61" name="wall" x="480" y="320" width="32" height="32"/>
+  <object id="62" name="wall" x="480" y="384" width="32" height="32"/>
+  <object id="63" name="wall" x="512" y="352" width="32" height="32"/>
+  <object id="64" name="travel1" x="32" y="288" width="32" height="32"/>
+  <object id="65" name="player" x="32" y="288" width="32" height="32"/>
+  <object id="66" name="wall" x="480" y="256" width="32" height="32"/>
+  <object id="67" name="wall" x="480" y="224" width="32" height="32"/>
+  <object id="68" name="wall" x="480" y="192" width="32" height="32"/>
+  <object id="69" name="wall" x="480" y="160" width="32" height="32"/>
+  <object id="70" name="wall" x="480" y="128" width="32" height="32"/>
+  <object id="71" name="wall" x="480" y="96" width="32" height="32"/>
+  <object id="72" name="wall" x="480" y="64" width="32" height="32"/>
+  <object id="73" name="wall" x="480" y="32" width="32" height="32"/>
+  <object id="74" name="wall" x="0" y="256" width="32" height="32"/>
+  <object id="75" name="wall" x="-32" y="224" width="32" height="32"/>
+  <object id="76" name="wall" x="-32" y="192" width="32" height="32"/>
+  <object id="77" name="wall" x="-32" y="160" width="32" height="32"/>
+  <object id="78" name="wall" x="-32" y="96" width="32" height="32"/>
+  <object id="79" name="wall" x="-32" y="128" width="32" height="32"/>
+  <object id="80" name="wall" x="-32" y="64" width="32" height="32"/>
+  <object id="81" name="wall" x="-32" y="32" width="32" height="32"/>
+  <object id="84" name="wall" x="32" y="256" width="32" height="32"/>
+  <object id="85" name="wall" x="64" y="256" width="32" height="32"/>
+  <object id="86" name="wall" x="128" y="256" width="32" height="32"/>
+  <object id="87" name="wall" x="160" y="256" width="32" height="32"/>
+  <object id="88" name="wall" x="160" y="224" width="32" height="32"/>
+  <object id="89" name="wall" x="160" y="192" width="32" height="32"/>
+  <object id="90" name="wall" x="160" y="160" width="32" height="32"/>
+  <object id="91" name="wall" x="160" y="128" width="32" height="32"/>
+  <object id="92" name="wall" x="160" y="96" width="32" height="32"/>
+  <object id="93" name="wall" x="160" y="64" width="32" height="32"/>
+  <object id="94" name="wall" x="160" y="32" width="32" height="32"/>
+  <object id="95" name="wall" x="160" y="0" width="32" height="32"/>
+  <object id="96" name="wall" x="224" y="704" width="32" height="32"/>
+  <object id="97" name="wall" x="256" y="704" width="32" height="32"/>
+  <object id="98" name="wall" x="288" y="704" width="32" height="32"/>
+  <object id="99" name="wall" x="320" y="704" width="32" height="32"/>
+  <object id="101" name="wall" x="384" y="704" width="32" height="32"/>
+  <object id="102" name="wall" x="416" y="704" width="32" height="32"/>
+  <object id="103" name="wall" x="448" y="704" width="32" height="32"/>
+  <object id="104" name="wall" x="448" y="672" width="32" height="32"/>
+  <object id="105" name="wall" x="416" y="672" width="32" height="32"/>
+  <object id="106" name="wall" x="384" y="672" width="32" height="32"/>
+  <object id="108" name="wall" x="320" y="672" width="32" height="32"/>
+  <object id="109" name="wall" x="320" y="640" width="32" height="32"/>
+  <object id="111" name="wall" x="384" y="640" width="32" height="32"/>
+  <object id="112" name="wall" x="416" y="640" width="32" height="32"/>
+  <object id="113" name="wall" x="448" y="640" width="32" height="32"/>
+  <object id="114" name="wall" x="448" y="608" width="32" height="32"/>
+  <object id="115" name="wall" x="416" y="608" width="32" height="32"/>
+  <object id="116" name="wall" x="384" y="608" width="32" height="32"/>
+  <object id="118" name="wall" x="320" y="608" width="32" height="32"/>
+  <object id="119" name="wall" x="320" y="576" width="32" height="32"/>
+  <object id="120" name="wall" x="320" y="544" width="32" height="32"/>
+  <object id="121" name="wall" x="352" y="544" width="32" height="32"/>
+  <object id="126" name="wall" x="416" y="576" width="32" height="32"/>
+  <object id="127" name="wall" x="448" y="576" width="32" height="32"/>
+  <object id="128" name="wall" x="448" y="544" width="32" height="32"/>
+  <object id="133" name="wall" x="352" y="480" width="32" height="32"/>
+  <object id="137" name="wall" x="416" y="192" width="32" height="32"/>
+  <object id="138" name="wall" x="384" y="192" width="32" height="32"/>
+  <object id="139" name="wall" x="448" y="160" width="32" height="32"/>
+  <object id="140" name="wall" x="384" y="96" width="32" height="32"/>
+  <object id="141" name="wall" x="320" y="160" width="32" height="32"/>
+  <object id="142" name="wall" x="256" y="224" width="32" height="32"/>
+  <object id="143" name="wall" x="192" y="128" width="32" height="32"/>
+  <object id="144" name="wall" x="64" y="192" width="32" height="32"/>
+  <object id="145" name="wall" x="96" y="64" width="32" height="32"/>
+  <object id="146" name="wall" x="96" y="704" width="32" height="32"/>
+  <object id="147" name="wall" x="64" y="704" width="32" height="32"/>
+  <object id="148" name="wall" x="32" y="704" width="32" height="32"/>
+  <object id="149" name="wall" x="32" y="672" width="32" height="32"/>
+  <object id="150" name="wall" x="64" y="672" width="32" height="32"/>
+  <object id="151" name="wall" x="96" y="672" width="32" height="32"/>
+  <object id="152" name="wall" x="64" y="640" width="32" height="32"/>
+  <object id="153" name="wall" x="32" y="640" width="32" height="32"/>
+  <object id="154" name="wall" x="32" y="608" width="32" height="32"/>
+  <object id="155" name="wall" x="64" y="608" width="32" height="32"/>
+  <object id="156" name="wall" x="64" y="576" width="32" height="32"/>
+  <object id="157" name="wall" x="32" y="576" width="32" height="32"/>
+  <object id="158" name="wall" x="32" y="544" width="32" height="32"/>
+  <object id="159" name="wall" x="32" y="512" width="32" height="32"/>
+  <object id="160" name="wall" x="416" y="448" width="32" height="32"/>
+  <object id="161" name="wall" x="448" y="448" width="32" height="32"/>
+  <object id="162" name="wall" x="352" y="448" width="32" height="32"/>
+  <object id="163" name="wall" x="320" y="352" width="32" height="32"/>
+  <object id="164" name="wall" x="320" y="320" width="32" height="32"/>
+  <object id="165" name="wall" x="320" y="288" width="32" height="32"/>
+  <object id="166" name="wall" x="352" y="288" width="32" height="32"/>
+  <object id="167" name="wall" x="384" y="256" width="32" height="32"/>
+  <object id="168" name="wall" x="384" y="288" width="32" height="32"/>
+  <object id="169" name="wall" x="384" y="320" width="32" height="32"/>
+  <object id="170" name="wall" x="416" y="288" width="32" height="32"/>
+  <object id="171" name="wall" x="416" y="320" width="32" height="32"/>
+  <object id="172" name="wall" x="448" y="288" width="32" height="32"/>
+  <object id="173" name="wall" x="448" y="320" width="32" height="32"/>
+  <object id="174" name="wall" x="320" y="416" width="32" height="32"/>
+  <object id="175" name="wall" x="320" y="448" width="32" height="32"/>
+  <object id="176" name="wall" x="288" y="448" width="32" height="32"/>
+  <object id="177" name="wall" x="256" y="448" width="32" height="32"/>
+  <object id="178" name="wall" x="256" y="480" width="32" height="32"/>
+  <object id="179" name="wall" x="256" y="544" width="32" height="32"/>
+  <object id="180" name="wall" x="256" y="576" width="32" height="32"/>
+  <object id="181" name="wall" x="256" y="608" width="32" height="32"/>
+  <object id="182" name="wall" x="288" y="608" width="32" height="32"/>
+  <object id="183" name="wall" x="32" y="448" width="32" height="32"/>
+  <object id="184" name="wall" x="32" y="416" width="32" height="32"/>
+  <object id="185" name="wall" x="64" y="416" width="32" height="32"/>
+  <object id="186" name="wall" x="64" y="448" width="32" height="32"/>
+  <object id="187" name="wall" x="96" y="448" width="32" height="32"/>
+  <object id="188" name="wall" x="96" y="416" width="32" height="32"/>
+  <object id="189" name="wall" x="128" y="416" width="32" height="32"/>
+  <object id="190" name="wall" x="128" y="448" width="32" height="32"/>
+  <object id="191" name="wall" x="160" y="416" width="32" height="32"/>
+  <object id="192" name="wall" x="96" y="352" width="32" height="32"/>
+  <object id="193" name="wall" x="128" y="352" width="32" height="32"/>
+  <object id="194" name="wall" x="128" y="512" width="32" height="32"/>
+  <object id="195" name="wall" x="96" y="512" width="32" height="32"/>
+  <object id="196" name="wall" x="64" y="512" width="32" height="32"/>
+  <object id="197" name="wall" x="384" y="160" width="32" height="32"/>
+  <object id="198" name="wall" x="224" y="64" width="32" height="32"/>
+  <object id="200" name="wall" x="256" y="192" width="32" height="32"/>
+  <object id="201" name="wall" x="160" y="608" width="32" height="32"/>
+  <object id="202" name="wall" x="32" y="352" width="32" height="32"/>
+  <object id="203" name="wall" x="64" y="384" width="32" height="32"/>
+  <object id="204" name="wall" x="128" y="320" width="32" height="32"/>
+  <object id="205" name="wall" x="512" y="480" width="32" height="32"/>
+  <object id="206" name="wall" x="512" y="512" width="32" height="32"/>
+  <object id="207" name="mob3" x="480" y="352" width="32" height="32"/>
+  <object id="208" name="mob2" x="416" y="512" width="32" height="32"/>
+  <object id="209" name="chest" x="480" y="480" width="32" height="32"/>
+  <object id="210" name="heart" x="224" y="352" width="32" height="32"/>
+  <object id="211" name="mob2" x="128" y="608" width="32" height="32"/>
+  <object id="212" name="mob1" x="192" y="608" width="32" height="32"/>
+  <object id="213" name="mob3" x="96" y="128" width="32" height="32"/>
+  <object id="214" name="chest" x="448" y="32" width="32" height="32"/>
+ </objectgroup>
+</map>

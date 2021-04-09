@@ -130,20 +130,21 @@ class Game:
         out.writelines(data)
         out.close()
 
-    def new(self):
+    def new(self, map, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
         self.items = pg.sprite.Group()
         self.chests = pg.sprite.Group()
         self.signs = pg.sprite.Group()
-        self.map = TiledMap(path.join(self.map_folder, 'f.tmx'))
+        self.travels = pg.sprite.Group()
+        self.map = TiledMap(path.join(self.map_folder, map))
         self.map_img = self.map.make_map()
         self.map_rect = self.map_img.get_rect()
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y)
+                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys)
             if tile_object.name in ['mob1', 'mob2', 'mob3', 'mob4']:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'wall':
@@ -152,6 +153,8 @@ class Game:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)
+            if tile_object.name in ['travel1', 'travel2', 'travel3', 'travel4', 'travel5', 'travel6', 'travel7', 'travel8', 'travel9']:
+                Travel(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height, tile_object.name)
             if 'sign' in tile_object.name:
                 self.sign_texts = {}
                 for text in SIGN_TEXTS:
@@ -180,8 +183,6 @@ class Game:
     def update(self):
         self.all_sprites.update()
         self.camera.update(self.player)
-        if len(self.mobs) == 0:
-            self.playing == False
         if self.player.health <= 0:
             self.playing = False
 
@@ -223,7 +224,7 @@ class Game:
                     self.paused = not self.paused
 
     def draw(self):
-        pg.display.set_caption("{} FPS: {:.2f}".format(TITLE, self.clock.get_fps()))
+        pg.display.set_caption("{} FPS: {:.2f} ({}, {})".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE))
         # self.screen.fill(BG_COLOR)
         self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
         for sprite in self.all_sprites:
@@ -266,6 +267,6 @@ class Game:
 g = Game()
 g.show_start_screen()
 while g.running:
-    g.new()
+    g.new('map.tmx')
     g.run()
     g.show_go_screen()

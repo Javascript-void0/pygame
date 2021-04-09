@@ -1,6 +1,6 @@
 TITLE = 'ROGUELIKE'
 WIDTH = 512
-HEIGHT = 1024
+HEIGHT = 768
 FPS = 60
 
 TILESIZE = 32
@@ -27,7 +27,8 @@ SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
 SIGN_TEXTS = {'sign1': 'Welcome :D',
-              'sign2': 'Made by Java :3'}
+              'sign2': 'Made by Java :3',
+              'sign3': '<<< Enter :P'}
 
 PLAYER_DAMAGE = 10
 PLAYER_HEALTH = 5000
@@ -72,3 +73,13 @@ WEAPON8_AMOUNT = 20
 ARMOR1_AMOUNT = 2
 ARMOR2_AMOUNT = 4
 ARMOR3_AMOUNT = 6
+
+TRAVEL_LIST = ['travel1',
+               'travel2',
+               'travel3', 
+               'travel4', 
+               'travel5', 
+               'travel6', 
+               'travel7', 
+               'travel8', 
+               'travel9']
