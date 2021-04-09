@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="215">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="225">
  <tileset firstgid="1" source="../assets/32x32.tsx"/>
  <layer id="1" name="Ground" width="16" height="24" locked="1">
   <data encoding="csv">
@@ -29,7 +29,7 @@
 1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1
 </data>
  </layer>
- <layer id="2" name="Tile Layer 2" width="16" height="24">
+ <layer id="2" name="Tiles" width="16" height="24">
   <data encoding="csv">
 641,642,642,642,642,147,642,642,642,642,642,642,642,642,642,643,
 301,303,303,301,301,147,0,97,0,0,103,0,0,0,0,691,
@@ -57,7 +57,7 @@
 818,818,818,820,770,770,770,821,818,769,770,770,821,818,818,818
 </data>
  </layer>
- <objectgroup id="3" name="Object Layer 1">
+ <objectgroup id="3" name="Obstacles">
   <object id="1" name="wall" x="480" y="416" width="32" height="32"/>
   <object id="5" name="wall" x="480" y="448" width="32" height="32"/>
   <object id="8" name="wall" x="480" y="544" width="32" height="32"/>
@@ -89,7 +89,6 @@
   <object id="34" name="wall" x="0" y="576" width="32" height="32"/>
   <object id="35" name="wall" x="0" y="544" width="32" height="32"/>
   <object id="36" name="wall" x="0" y="512" width="32" height="32"/>
-  <object id="37" name="wall" x="-32" y="480" width="32" height="32"/>
   <object id="38" name="wall" x="0" y="448" width="32" height="32"/>
   <object id="39" name="wall" x="0" y="416" width="32" height="32"/>
   <object id="40" name="wall" x="0" y="384" width="32" height="32"/>
@@ -115,8 +114,7 @@
   <object id="60" name="wall" x="480" y="288" width="32" height="32"/>
   <object id="61" name="wall" x="480" y="320" width="32" height="32"/>
   <object id="62" name="wall" x="480" y="384" width="32" height="32"/>
-  <object id="63" name="wall" x="512" y="352" width="32" height="32"/>
-  <object id="64" name="travel1" x="32" y="288" width="32" height="32"/>
+  <object id="64" name="travel" x="32" y="288" width="32" height="32"/>
   <object id="65" name="player" x="32" y="288" width="32" height="32"/>
   <object id="66" name="wall" x="480" y="256" width="32" height="32"/>
   <object id="67" name="wall" x="480" y="224" width="32" height="32"/>
@@ -241,13 +239,17 @@
   <object id="204" name="wall" x="128" y="320" width="32" height="32"/>
   <object id="205" name="wall" x="512" y="480" width="32" height="32"/>
   <object id="206" name="wall" x="512" y="512" width="32" height="32"/>
-  <object id="207" name="mob3" x="480" y="352" width="32" height="32"/>
-  <object id="208" name="mob2" x="416" y="512" width="32" height="32"/>
   <object id="209" name="chest" x="480" y="480" width="32" height="32"/>
-  <object id="210" name="heart" x="224" y="352" width="32" height="32"/>
-  <object id="211" name="mob2" x="128" y="608" width="32" height="32"/>
-  <object id="212" name="mob1" x="192" y="608" width="32" height="32"/>
-  <object id="213" name="mob3" x="96" y="128" width="32" height="32"/>
+  <object id="210" name="item" x="224" y="352" width="32" height="32"/>
+  <object id="211" name="mob" x="128" y="608" width="32" height="32"/>
+  <object id="213" name="mob" x="96" y="128" width="32" height="32"/>
   <object id="214" name="chest" x="448" y="32" width="32" height="32"/>
+  <object id="217" name="travel" x="-32" y="480" width="32" height="32"/>
+  <object id="218" name="travel" x="512" y="352" width="32" height="32"/>
+  <object id="219" name="mob" x="192" y="608" width="32" height="32"/>
+  <object id="220" name="mob" x="416" y="512" width="32" height="32"/>
+  <object id="221" name="mob" x="480" y="352" width="32" height="32"/>
+  <object id="222" name="item" x="352" y="320" width="32" height="32"/>
+  <object id="224" name="item" x="192" y="32" width="32" height="32"/>
  </objectgroup>
 </map>

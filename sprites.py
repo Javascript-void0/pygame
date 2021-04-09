@@ -52,7 +52,14 @@ class Player(pg.sprite.Sprite):
                 return True
         for travel in self.game.travels:
             if travel.x == self.x + dx and travel.y == self.y + dy:
-                self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                if travel.name == 'travel':
+                    random_travel = random.choice(TRAVEL_LIST)
+                    if random_travel == self.game.map_name[:-4]:
+                        self.game.new(f'travel1.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                    else:
+                        self.game.new(f'{random_travel}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                else:
+                    self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
                 self.game.run()
                 return True
         return False

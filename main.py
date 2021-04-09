@@ -138,6 +138,7 @@ class Game:
         self.chests = pg.sprite.Group()
         self.signs = pg.sprite.Group()
         self.travels = pg.sprite.Group()
+        self.map_name= map
         self.map = TiledMap(path.join(self.map_folder, map))
         self.map_img = self.map.make_map()
         self.map_rect = self.map_img.get_rect()
@@ -145,15 +146,21 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys)
-            if tile_object.name in ['mob1', 'mob2', 'mob3', 'mob4']:
+            if tile_object.name in MOB_LIST:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
+            if tile_object.name == 'mob':
+                random_mob = random.choice(MOB_LIST)
+                Mob(self, tile_object.x, tile_object.y, random_mob)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['heart', 'weapon1', 'weapon2', 'weapon3', 'weapon4', 'weapon5', 'weapon6', 'weapon7', 'weapon8', 'key', 'coin', 'armor1', 'armor2', 'armor3']:
+            if tile_object.name in ITEM_LIST:
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
+            if tile_object.name == 'item':
+                random_item = random.choice(ITEM_LIST)
+                Item(self, tile_object.x, tile_object.y, random_item)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)
-            if tile_object.name in ['travel1', 'travel2', 'travel3', 'travel4', 'travel5', 'travel6', 'travel7', 'travel8', 'travel9']:
+            if tile_object.name == 'travel' or tile_object.name in TRAVEL_LIST:
                 Travel(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height, tile_object.name)
             if 'sign' in tile_object.name:
                 self.sign_texts = {}
@@ -224,7 +231,7 @@ class Game:
                     self.paused = not self.paused
 
     def draw(self):
-        pg.display.set_caption("{} FPS: {:.2f} ({}, {})".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE))
+        pg.display.set_caption("{} FPS: {:.2f} ({}, {}) MAP: {}".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE, self.map_name))
         # self.screen.fill(BG_COLOR)
         self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
         for sprite in self.all_sprites:

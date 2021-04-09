@@ -2,8 +2,8 @@
 
 ### 📄 Todo Ideas
 
-- [ ] Randomize Mobs
-- [ ] Randomize Travels (maps)
+- [x] Randomize Mobs
+- [x] Randomize Travels (maps)
 - [ ] Maps 3-11
 - [ ] More Items and Mobs
 - [ ] Player Upgrades

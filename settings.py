@@ -28,7 +28,7 @@ CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
 SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign2': 'Made by Java :3',
-              'sign3': '<<< Enter :P'}
+              'sign3': 'fin'}
 
 PLAYER_DAMAGE = 10
 PLAYER_HEALTH = 5000
@@ -83,3 +83,23 @@ TRAVEL_LIST = ['travel1',
                'travel7', 
                'travel8', 
                'travel9']
+
+MOB_LIST = ['mob1',
+            'mob2',
+            'mob3',
+            'mob4']
+
+ITEM_LIST = ['heart',
+             'coin',
+             'key',
+             'weapon1',
+             'weapon2',
+             'weapon3',
+             'weapon4',
+             'weapon5',
+             'weapon6',
+             'weapon7',
+             'weapon8',
+             'armor1',
+             'armor2',
+             'armor3']
