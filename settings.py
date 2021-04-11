@@ -31,7 +31,7 @@ SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign3': 'fin'}
 
 PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 5000
+PLAYER_HEALTH = 50
 PLAYER_ARMOR = 5
 MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
@@ -50,6 +50,7 @@ ITEMS_LAYER = 1
 ITEM_IMAGES = {'heart': 'heart.png',
                'coin': 'coin.png',
                'key': 'key.png',
+               'potion': 'potion.png',
                'weapon1': 'weapon1.png',
                'weapon2': 'weapon2.png',
                'weapon3': 'weapon3.png',
@@ -62,6 +63,7 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'armor2': 'armor2.png',
                'armor3': 'armor3.png'}
 HEART_AMOUNT = 50
+POTION_AMOUNT = 50
 WEAPON1_AMOUNT = 0
 WEAPON2_AMOUNT = 5
 WEAPON3_AMOUNT = 10
@@ -92,6 +94,7 @@ MOB_LIST = ['mob1',
 ITEM_LIST = ['heart',
              'coin',
              'key',
+             'potion',
              'weapon1',
              'weapon2',
              'weapon3',

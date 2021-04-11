@@ -3,7 +3,7 @@ import random
 from settings import *
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0):
+    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -15,15 +15,20 @@ class Player(pg.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.health = health
-        self.damage = damage
-        self.armor = armor
         try:
             self.weapon_img = game.item_images[weapon]
         except KeyError:
             self.weapon_img = weapon
         self.coins = int(self.game.data[0])
+        self.level = 1
+        self.health_upgrade = 0
+        self.damage_upgrade = 0
+        self.armor_upgrade = 0
+        self.health = health + (self.health_upgrade * 10)
+        self.damage = damage + (self.damage_upgrade * 10)
+        self.armor = armor + self.armor_upgrade
         self.keys = keys
+        self.potions = potions
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
@@ -33,10 +38,12 @@ class Player(pg.sprite.Sprite):
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
             if wall.x == self.x + dx and wall.y == self.y + dy:
+                self.game.sound.play()
                 return True
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 mob.health -= self.damage
+                self.game.sound.play()
                 return True
         for chest in self.game.chests:
             if chest.x == self.x + dx and chest.y == self.y + dy:
@@ -45,10 +52,12 @@ class Player(pg.sprite.Sprite):
                     self.random_item(self.game, chest.x, chest.y)
                     self.keys -= 1
                     return True
+                self.game.sound.play()
                 return True
         for sign in self.game.signs:
             if sign.x == self.x + dx and sign.y == self.y + dy:
                 print(sign.text)
+                self.game.sound.play()
                 return True
         for travel in self.game.travels:
             if travel.x == self.x + dx and travel.y == self.y + dy:
@@ -76,6 +85,9 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'key':
                     item.kill()
                     self.keys += 1
+                if item.type == 'potion':
+                    item.kill()
+                    self.potions += 1
                 if item.type == 'weapon1':
                     item.kill()
                     self.better_damage(item.type, WEAPON1_AMOUNT)
