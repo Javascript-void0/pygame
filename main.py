@@ -60,7 +60,15 @@ class Game:
         out.writelines(data)
         out.close()
 
-    def new(self, map, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0, books = 0):
+    def new(self, map, health = PLAYER_HEALTH, 
+            damage = PLAYER_DAMAGE, 
+            armor = PLAYER_ARMOR, 
+            weapon = 'weapon1', 
+            keys = 0, 
+            potions = 0, 
+            books = 0, 
+            health_upgrade = 0, 
+            armor_upgrade = 0):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
@@ -75,7 +83,7 @@ class Game:
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions)
+                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade)
             if tile_object.name in MOB_LIST:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':

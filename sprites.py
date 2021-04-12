@@ -3,7 +3,16 @@ import random
 from settings import *
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0, books = 0):
+    def __init__(self, game, x, y, 
+                 health = PLAYER_HEALTH, 
+                 damage = PLAYER_DAMAGE, 
+                 armor = PLAYER_ARMOR, 
+                 weapon = 'weapon1', 
+                 keys = 0, 
+                 potions = 0, 
+                 books = 0, 
+                 health_upgrade = 0, 
+                 armor_upgrade = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -21,15 +30,14 @@ class Player(pg.sprite.Sprite):
             self.weapon_img = weapon
         self.coins = int(self.game.data[0])
         self.level = 1
-        self.health_upgrade = 0
-        self.damage_upgrade = 0
-        self.armor_upgrade = 0
-        self.health = health + (self.health_upgrade * 10)
-        self.damage = damage + (self.damage_upgrade * 10)
-        self.armor = armor + self.armor_upgrade
+        self.health_upgrade = health_upgrade
+        self.armor_upgrade = armor_upgrade
+        self.health = health + (self.health_upgrade * 20) # ?
+        self.damage = damage
+        self.armor = armor + self.armor_upgrade # ?
         self.keys = keys
         self.potions = potions
-        self.books = 60
+        self.books = books
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
@@ -65,11 +73,37 @@ class Player(pg.sprite.Sprite):
                 if travel.name == 'travel':
                     random_travel = random.choice(TRAVEL_LIST)
                     if random_travel == self.game.map_name[:-4]:
-                        self.game.new(f'travel1.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
+                        self.game.new(f'travel1.tmx', 
+                                        self.health, 
+                                        self.damage, 
+                                        self.armor, 
+                                        self.weapon_img, 
+                                        self.keys, 
+                                        self.potions, 
+                                        self.books, 
+                                        self.health_upgrade, 
+                                        self.armor_upgrade)
                     else:
-                        self.game.new(f'{random_travel}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
+                        self.game.new(f'{random_travel}.tmx', 
+                                        self.health, 
+                                        self.damage, 
+                                        self.armor, 
+                                        self.weapon_img, 
+                                        self.keys, 
+                                        self.potions, 
+                                        self.books, 
+                                        self.health_upgrade, 
+                                        self.armor_upgrade)
                 else:
-                    self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
+                    self.game.new(f'{travel.name}.tmx', 
+                                    self.health, self.damage, 
+                                    self.armor, 
+                                    self.weapon_img, 
+                                    self.keys, 
+                                    self.potions, 
+                                    self.books, 
+                                    self.health_upgrade, 
+                                    self.armor_upgrade)
                 self.game.sound.play()
                 self.game.run()
                 return True
@@ -243,6 +277,9 @@ class Mob(pg.sprite.Sprite):
         if self.health <= 0:
             self.kill()
             self.game.player.coins += 1
+            rand = random.randint(1, 20)
+            if rand == 1:
+                Player.random_item(self, self.game, self.x, self.y)
             if not self.check_item(self.x, self.y):
                 self.game.map_img.blit(self.game.skull_img, (self.x, self.y))
 

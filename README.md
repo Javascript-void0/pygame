@@ -10,4 +10,5 @@
 - [x] Player Stats
 - [x] Fix Health and Armor Bar from upgrade
 - [ ] Text
-- [ ] Mob Drops
+- [x] Mob Drops
+- [ ] Better Map System?
