@@ -90,7 +90,7 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'potion':
                     item.kill()
                     self.potions += 1
-                if item.type == 'books':
+                if item.type == 'book':
                     item.kill()
                     self.books += 1
                 if item.type == 'weapon1':

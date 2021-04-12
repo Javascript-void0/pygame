@@ -142,3 +142,18 @@ class Draw:
     def draw_paused(self, surf, x, y):
         self.screen.blit(self.dim_screen, (0, 0))
         Draw.draw_text(self, "paused", self.font, 30, C1, WIDTH / 2, HEIGHT / 2, align="center")
+
+    def draw_player_stats(self, surf, x, y):
+        self.bg = pg.Rect(x, y, TILESIZE * 5, TILESIZE * 3.5)
+        self.bg.topleft = (x, y)
+        self.outline = pg.Rect(x, y, TILESIZE * 5, TILESIZE * 3.5)
+        self.outline.topleft = (x, y)
+        pg.draw.rect(self.screen, BG_COLOR, self.bg)
+        pg.draw.rect(self.screen, C1, self.outline, 2)
+        surf.blit(self.heart_img, (x + 10, y + 10))
+        self.weapon_img = pg.transform.scale(self.player.weapon_img, (24, 24))
+        surf.blit(self.weapon_img, (x + 10, y + 44))
+        surf.blit(self.armor_img, (x + 10, y + 74))
+        Draw.draw_text(self, f'Health: {self.player.health}', self.font, 10, C1, x + 46, y + 26, align="w")
+        Draw.draw_text(self, f'Damage: {self.player.damage}', self.font, 10, C1, x + 46, y + 60, align="w")
+        Draw.draw_text(self, f'Armor: {self.player.armor}', self.font, 10, C1, x + 46, y + 90, align="w")

@@ -204,7 +204,8 @@ class Game:
         Draw.draw_top(self, self.screen, WIDTH / 2, 10)
         if self.paused:
             Draw.draw_paused(self, self.screen, (WIDTH / 2), (HEIGHT * 7 / 8) - 10)
-            Draw.draw_upgrades(self, self.screen, (WIDTH / 2) + 30, HEIGHT - 45)
+            Draw.draw_upgrades(self, self.screen, 140, HEIGHT - 45)
+            Draw.draw_player_stats(self, self.screen, (WIDTH / 2) - 80, HEIGHT - (TILESIZE * 3.5) - 10)
         pg.display.flip()
 
     def show_start_screen(self):
