@@ -42,7 +42,9 @@ class Game:
             self.mob_images[mob] = pg.image.load(path.join(self.asset_folder, MOB_IMAGES[mob])).convert_alpha()
         self.load_user_data()
         self.sound = pg.mixer.Sound(path.join(self.asset_folder, 'obstacle.wav'))
-        self.sound.set_volume(0.01)
+        self.sound.set_volume(0.008)
+        self.footstep = pg.mixer.Sound(path.join(self.asset_folder, 'footstep.wav'))
+        self.footstep.set_volume(0.03)
 
     def load_user_data(self):
         self.data = open("user_data.txt", "r").readlines()
@@ -58,7 +60,7 @@ class Game:
         out.writelines(data)
         out.close()
 
-    def new(self, map, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0):
+    def new(self, map, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0, books = 0):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
@@ -125,12 +127,30 @@ class Game:
     def pause(self):
         pg.mixer.music.pause()
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+                self.quit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     self.quit()
-                self.paused = not self.paused
-                pg.mixer.music.unpause()
-                self.save_user_data()
+                elif event.key == pg.K_1:
+                    cost = (self.player.health_upgrade + 1) * 2
+                    if self.player.books >= cost:
+                        self.player.books -= cost
+                        self.player.health_upgrade += 1
+                        self.player.health = (self.player.health_upgrade * 20) + PLAYER_HEALTH
+                elif event.key == pg.K_2:
+                    cost = (self.player.armor_upgrade + 1) * 2
+                    if self.player.books >= cost:
+                        self.player.books -= cost
+                        self.player.armor_upgrade += 1
+                        self.player.armor = self.player.armor_upgrade + PLAYER_ARMOR
+                else:
+                    self.paused = not self.paused
+                    pg.mixer.music.unpause()
+                    self.save_user_data()
 
     def events(self):
         for event in pg.event.get():
@@ -168,14 +188,6 @@ class Game:
                         self.player.health += POTION_AMOUNT
                         if self.player.health > PLAYER_HEALTH:
                             self.player.health = PLAYER_HEALTH
-            if event.type == pg.MOUSEBUTTONDOWN:
-                x, y = event.pos
-                if self.bg1.collidepoint(x, y):
-                    print('button 1')
-                if self.bg2.collidepoint(x, y):
-                    print('button 2')
-                if self.bg3.collidepoint(x, y):
-                    print('button 3')
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f} ({}, {}) MAP: {}".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE, self.map_name))
@@ -189,12 +201,10 @@ class Game:
         Draw.draw_player_health(self, self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
         Draw.draw_player_armor(self, self.screen, 43, 30, self.player.armor / PLAYER_ARMOR)
         Draw.draw_player_weapon(self, self.screen, 10, 30, self.player.weapon_img)
-        Draw.draw_keys(self, self.screen, (WIDTH / 2) - 25, 10, self.player.keys)
-        Draw.draw_coins(self, self.screen, (WIDTH / 2) + 25, 10, self.player.coins)
-        Draw.draw_potions(self, self.screen, (WIDTH / 2), 10, self.player.potions)
-        Draw.draw_upgrades(self, self.screen, WIDTH - 28, HEIGHT - 38)
+        Draw.draw_top(self, self.screen, WIDTH / 2, 10)
         if self.paused:
             Draw.draw_paused(self, self.screen, (WIDTH / 2), (HEIGHT * 7 / 8) - 10)
+            Draw.draw_upgrades(self, self.screen, (WIDTH / 2) + 30, HEIGHT - 45)
         pg.display.flip()
 
     def show_start_screen(self):

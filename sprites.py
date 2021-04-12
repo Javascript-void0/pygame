@@ -3,7 +3,7 @@ import random
 from settings import *
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0):
+    def __init__(self, game, x, y, health = PLAYER_HEALTH, damage = PLAYER_DAMAGE, armor = PLAYER_ARMOR, weapon = 'weapon1', keys = 0, potions = 0, books = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -29,11 +29,13 @@ class Player(pg.sprite.Sprite):
         self.armor = armor + self.armor_upgrade
         self.keys = keys
         self.potions = potions
+        self.books = 60
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
             self.x += dx * TILESIZE
             self.y += dy * TILESIZE
+            self.game.footstep.play()
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -43,7 +45,6 @@ class Player(pg.sprite.Sprite):
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 mob.health -= self.damage
-                self.game.sound.play()
                 return True
         for chest in self.game.chests:
             if chest.x == self.x + dx and chest.y == self.y + dy:
@@ -64,11 +65,12 @@ class Player(pg.sprite.Sprite):
                 if travel.name == 'travel':
                     random_travel = random.choice(TRAVEL_LIST)
                     if random_travel == self.game.map_name[:-4]:
-                        self.game.new(f'travel1.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                        self.game.new(f'travel1.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
                     else:
-                        self.game.new(f'{random_travel}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                        self.game.new(f'{random_travel}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
                 else:
-                    self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys)
+                    self.game.new(f'{travel.name}.tmx', self.health, self.damage, self.armor, self.weapon_img, self.keys, self.potions, self.books)
+                self.game.sound.play()
                 self.game.run()
                 return True
         return False
@@ -88,6 +90,9 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'potion':
                     item.kill()
                     self.potions += 1
+                if item.type == 'books':
+                    item.kill()
+                    self.books += 1
                 if item.type == 'weapon1':
                     item.kill()
                     self.better_damage(item.type, WEAPON1_AMOUNT)

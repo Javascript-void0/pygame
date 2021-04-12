@@ -31,7 +31,7 @@ SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign3': 'fin'}
 
 PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 50
+PLAYER_HEALTH = 500
 PLAYER_ARMOR = 5
 MOB1_DAMAGE = 10
 MOB1_HEALTH = 30
@@ -51,6 +51,7 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'coin': 'coin.png',
                'key': 'key.png',
                'potion': 'potion.png',
+               'book': 'book.png',
                'weapon1': 'weapon1.png',
                'weapon2': 'weapon2.png',
                'weapon3': 'weapon3.png',
@@ -95,6 +96,7 @@ ITEM_LIST = ['heart',
              'coin',
              'key',
              'potion',
+             'book',
              'weapon1',
              'weapon2',
              'weapon3',

@@ -6,6 +6,8 @@
 - [x] Randomize Travels (maps)
 - [ ] Maps 3-11
 - [ ] More Items and Mobs
-- [ ] Player Upgrades
+- [x] Player Upgrades
+- [ ] Player Stats
+- [ ] Fix Health and Armor Bar from upgrade
 - [ ] Text
 - [ ] Mob Drops
