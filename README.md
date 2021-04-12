@@ -8,6 +8,6 @@
 - [ ] More Items and Mobs
 - [x] Player Upgrades
 - [ ] Player Stats
-- [ ] Fix Health and Armor Bar from upgrade
+- [x] Fix Health and Armor Bar from upgrade
 - [ ] Text
 - [ ] Mob Drops

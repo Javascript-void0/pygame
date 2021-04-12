@@ -140,13 +140,13 @@ class Game:
                     if self.player.books >= cost:
                         self.player.books -= cost
                         self.player.health_upgrade += 1
-                        self.player.health = (self.player.health_upgrade * 20) + PLAYER_HEALTH
+                        self.player.health = PLAYER_HEALTH + (20 * self.player.health_upgrade)
                 elif event.key == pg.K_2:
                     cost = (self.player.armor_upgrade + 1) * 2
                     if self.player.books >= cost:
                         self.player.books -= cost
                         self.player.armor_upgrade += 1
-                        self.player.armor = self.player.armor_upgrade + PLAYER_ARMOR
+                        self.player.armor = PLAYER_ARMOR + self.player.armor_upgrade
                 else:
                     self.paused = not self.paused
                     pg.mixer.music.unpause()
@@ -198,8 +198,8 @@ class Game:
         if self.draw_debug:
             for wall in self.walls:
                 pg.draw.rect(self.screen, C2, self.camera.apply_rect(wall.rect), 1)
-        Draw.draw_player_health(self, self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
-        Draw.draw_player_armor(self, self.screen, 43, 30, self.player.armor / PLAYER_ARMOR)
+        Draw.draw_player_health(self, self.screen, 10, 10, self.player.health / (PLAYER_HEALTH + (self.player.health_upgrade * 20)))
+        Draw.draw_player_armor(self, self.screen, 43, 30, self.player.armor / (PLAYER_ARMOR + self.player.armor_upgrade))
         Draw.draw_player_weapon(self, self.screen, 10, 30, self.player.weapon_img)
         Draw.draw_top(self, self.screen, WIDTH / 2, 10)
         if self.paused:
