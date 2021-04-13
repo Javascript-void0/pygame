@@ -219,6 +219,9 @@ class Mob(pg.sprite.Sprite):
         if self.type == 'mob4':
             self.health = MOB4_HEALTH
             self.damage = MOB4_DAMAGE
+        if self.type == 'mob5':
+            self.health = MOB5_HEALTH
+            self.damage = MOB5_DAMAGE
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:

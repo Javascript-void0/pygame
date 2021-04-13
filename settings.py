@@ -22,7 +22,8 @@ PLAYER_IMG = 'player.png'
 MOB_IMAGES = {'mob1': 'mob1.png',
               'mob2': 'mob2.png',
               'mob3': 'mob3.png',
-              'mob4': 'mob4.png'}
+              'mob4': 'mob4.png',
+              'mob5': 'mob5.png'}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
@@ -41,6 +42,8 @@ MOB3_DAMAGE = 20
 MOB3_HEALTH = 30
 MOB4_DAMAGE = 20
 MOB4_HEALTH = 50
+MOB5_DAMAGE = 20
+MOB5_HEALTH = 60
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
@@ -90,7 +93,8 @@ TRAVEL_LIST = ['travel1',
 MOB_LIST = ['mob1',
             'mob2',
             'mob3',
-            'mob4']
+            'mob4',
+            'mob5']
 
 ITEM_LIST = ['heart',
              'coin',

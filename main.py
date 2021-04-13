@@ -30,9 +30,6 @@ class Game:
         self.skull_img = pg.image.load(path.join(self.asset_folder, SKULL_IMG)).convert_alpha()
         self.chest_img = pg.image.load(path.join(self.asset_folder, CHEST_IMG)).convert_alpha()
         self.sign_img = pg.image.load(path.join(self.asset_folder, SIGN_IMG)).convert_alpha()
-        pg.mixer.music.load(path.join(self.asset_folder, 'background.wav'))
-        pg.mixer.music.set_volume(0.01)
-        pg.mixer.music.play(loops = -1)
 
         self.item_images = {}
         for item in ITEM_IMAGES:
