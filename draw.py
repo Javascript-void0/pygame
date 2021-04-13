@@ -157,3 +157,6 @@ class Draw:
         Draw.draw_text(self, f'Health: {PLAYER_HEALTH + (self.player.health_upgrade * 20)}', self.font, 10, C1, x + 46, y + 26, align="w")
         Draw.draw_text(self, f'Damage: {self.player.damage}', self.font, 10, C1, x + 46, y + 60, align="w")
         Draw.draw_text(self, f'Armor: {PLAYER_ARMOR + self.player.armor_upgrade}', self.font, 10, C1, x + 46, y + 90, align="w")
+
+    def draw_player_score(self, surf, x, y):
+        Draw.draw_text(self, f'~{self.player.moves}', self.font, 15, C1, x , y, align="e")

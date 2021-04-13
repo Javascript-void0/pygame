@@ -68,7 +68,8 @@ class Game:
             potions = 0, 
             books = 0, 
             health_upgrade = 0, 
-            armor_upgrade = 0):
+            armor_upgrade = 0, 
+            moves = 0):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
@@ -83,7 +84,7 @@ class Game:
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade)
+                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves)
             if tile_object.name in MOB_LIST:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':
@@ -214,6 +215,7 @@ class Game:
             Draw.draw_paused(self, self.screen, (WIDTH / 2), (HEIGHT * 7 / 8) - 10)
             Draw.draw_upgrades(self, self.screen, 140, HEIGHT - 45)
             Draw.draw_player_stats(self, self.screen, (WIDTH / 2) - 80, HEIGHT - (TILESIZE * 3.5) - 10)
+            Draw.draw_player_score(self, self.screen, WIDTH - 20, HEIGHT - 20)
         pg.display.flip()
 
     def show_start_screen(self):

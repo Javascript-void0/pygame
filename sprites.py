@@ -12,7 +12,8 @@ class Player(pg.sprite.Sprite):
                  potions = 0, 
                  books = 0, 
                  health_upgrade = 0, 
-                 armor_upgrade = 0):
+                 armor_upgrade = 0,
+                 moves = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -38,12 +39,14 @@ class Player(pg.sprite.Sprite):
         self.keys = keys
         self.potions = potions
         self.books = books
+        self.moves = moves
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
             self.x += dx * TILESIZE
             self.y += dy * TILESIZE
             self.game.footstep.play()
+            self.moves += 1
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:
@@ -82,7 +85,8 @@ class Player(pg.sprite.Sprite):
                                         self.potions, 
                                         self.books, 
                                         self.health_upgrade, 
-                                        self.armor_upgrade)
+                                        self.armor_upgrade, 
+                                        self.moves)
                     else:
                         self.game.new(f'{random_travel}.tmx', 
                                         self.health, 
@@ -93,7 +97,8 @@ class Player(pg.sprite.Sprite):
                                         self.potions, 
                                         self.books, 
                                         self.health_upgrade, 
-                                        self.armor_upgrade)
+                                        self.armor_upgrade,
+                                        self.moves)
                 else:
                     self.game.new(f'{travel.name}.tmx', 
                                     self.health, self.damage, 
@@ -103,7 +108,8 @@ class Player(pg.sprite.Sprite):
                                     self.potions, 
                                     self.books, 
                                     self.health_upgrade, 
-                                    self.armor_upgrade)
+                                    self.armor_upgrade,
+                                    self.moves)
                 self.game.sound.play()
                 self.game.run()
                 return True
