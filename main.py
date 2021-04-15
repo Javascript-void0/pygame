@@ -84,17 +84,23 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves, max_health, max_armor)
-            if tile_object.name in MOB_LIST:
+            if tile_object.name in MOB_IMAGES.keys():
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':
-                random_mob = random.choice(MOB_LIST)
+                mob_list = []
+                for i in MOB_IMAGES.keys():
+                    mob_list.append(i)
+                random_mob = random.choice(mob_list)
                 Mob(self, tile_object.x, tile_object.y, random_mob)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ITEM_LIST:
+            if tile_object.name in ITEM_IMAGES.keys():
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'item':
-                random_item = random.choice(ITEM_LIST)
+                item_list = []
+                for i in ITEM_IMAGES.keys():
+                    item_list.append(i)
+                random_item = random.choice(item_list)
                 Item(self, tile_object.x, tile_object.y, random_item)
             if tile_object.name == 'chest':
                 Chest(self, tile_object.x, tile_object.y)

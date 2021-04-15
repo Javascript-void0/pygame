@@ -89,26 +89,3 @@ TRAVEL_LIST = ['travel1',
                'travel7', 
                'travel8', 
                'travel9']
-
-MOB_LIST = ['mob1',
-            'mob2',
-            'mob3',
-            'mob4',
-            'mob5']
-
-ITEM_LIST = ['heart',
-             'coin',
-             'key',
-             'potion',
-             'book',
-             'weapon1',
-             'weapon2',
-             'weapon3',
-             'weapon4',
-             'weapon5',
-             'weapon6',
-             'weapon7',
-             'weapon8',
-             'armor1',
-             'armor2',
-             'armor3']
