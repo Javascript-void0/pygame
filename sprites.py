@@ -130,7 +130,7 @@ class Player(pg.sprite.Sprite):
             if item.x == self.x and item.y == self.y:
                 if item.type == 'heart' and self.health < self.max_health:
                     item.kill()
-                    self.add_health(HEART_AMOUNT)
+                    self.add_health(ITEM_AMOUNT['heart'])
                 if item.type == 'coin':
                     item.kill()
                     self.coins += 1
@@ -143,39 +143,12 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'book':
                     item.kill()
                     self.books += 1
-                if item.type == 'weapon1':
+                if 'weapon' in item.type:
                     item.kill()
-                    self.better_damage(item.type, WEAPON1_AMOUNT)
-                if item.type == 'weapon2':
+                    self.better_damage(item.type, ITEM_AMOUNT[item.type])
+                if 'armor' in item.type:
                     item.kill()
-                    self.better_damage(item.type, WEAPON2_AMOUNT)
-                if item.type == 'weapon3':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON3_AMOUNT)
-                if item.type == 'weapon4':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON4_AMOUNT)
-                if item.type == 'weapon5':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON5_AMOUNT)
-                if item.type == 'weapon6':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON6_AMOUNT)
-                if item.type == 'weapon7':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON7_AMOUNT)
-                if item.type == 'weapon8':
-                    item.kill()
-                    self.better_damage(item.type, WEAPON8_AMOUNT)
-                if item.type == 'armor1':
-                    item.kill()
-                    self.add_armor(ARMOR1_AMOUNT)
-                if item.type == 'armor2':
-                    item.kill()
-                    self.add_armor(ARMOR2_AMOUNT)
-                if item.type == 'armor3':
-                    item.kill()
-                    self.add_armor(ARMOR3_AMOUNT)
+                    self.add_armor(ITEM_AMOUNT[item.type])
 
     def random_item(self, game, x, y):
         item = random.choice(list(self.game.item_images))
@@ -217,21 +190,9 @@ class Mob(pg.sprite.Sprite):
         self.rect.y = y
         self.type = type
 
-        if self.type == 'mob1':
-            self.health = MOB1_HEALTH
-            self.damage = MOB1_DAMAGE
-        if self.type == 'mob2':
-            self.health = MOB2_HEALTH
-            self.damage = MOB2_DAMAGE
-        if self.type == 'mob3':
-            self.health = MOB3_HEALTH
-            self.damage = MOB3_DAMAGE
-        if self.type == 'mob4':
-            self.health = MOB4_HEALTH
-            self.damage = MOB4_DAMAGE
-        if self.type == 'mob5':
-            self.health = MOB5_HEALTH
-            self.damage = MOB5_DAMAGE
+        if 'mob' in self.type:
+            self.health = MOB_IMAGES[str(self.type) + '_health']
+            self.damage = MOB_IMAGES[str(self.type) + '_damage']
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:

@@ -36,7 +36,10 @@ class Game:
             self.item_images[item] = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES[item])).convert_alpha()
         self.mob_images = {}
         for mob in MOB_IMAGES:
-            self.mob_images[mob] = pg.image.load(path.join(self.asset_folder, MOB_IMAGES[mob])).convert_alpha()
+            try:
+                self.mob_images[mob] = pg.image.load(path.join(self.asset_folder, MOB_IMAGES[mob])).convert_alpha()
+            except TypeError:
+                pass
         self.load_user_data()
         self.sound = pg.mixer.Sound(path.join(self.asset_folder, 'obstacle.wav'))
         self.sound.set_volume(0.008)
@@ -89,7 +92,8 @@ class Game:
             if tile_object.name == 'mob':
                 mob_list = []
                 for i in MOB_IMAGES.keys():
-                    mob_list.append(i)
+                    if '_' not in i:
+                        mob_list.append(i)
                 random_mob = random.choice(mob_list)
                 Mob(self, tile_object.x, tile_object.y, random_mob)
             if tile_object.name == 'wall':
@@ -201,7 +205,7 @@ class Game:
                 if event.key == pg.K_q:
                     if self.player.health < PLAYER_HEALTH and self.player.potions > 0:
                         self.player.potions -= 1
-                        self.player.health += POTION_AMOUNT
+                        self.player.health += ITEM_AMOUNT['potion']
                         if self.player.health > PLAYER_HEALTH:
                             self.player.health = PLAYER_HEALTH
 

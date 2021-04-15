@@ -19,31 +19,20 @@ C8 = (142, 160, 145)     # LIGHT BLUE
 BG_COLOR = (71, 45, 60)
 
 PLAYER_IMG = 'player.png'
-MOB_IMAGES = {'mob1': 'mob1.png',
-              'mob2': 'mob2.png',
-              'mob3': 'mob3.png',
-              'mob4': 'mob4.png',
-              'mob5': 'mob5.png'}
+PLAYER_DAMAGE = 10
+PLAYER_HEALTH = 500
+PLAYER_ARMOR = 5
+MOB_IMAGES = {'mob1': 'mob1.png', 'mob1_health': 30, 'mob1_damage': 10,
+              'mob2': 'mob2.png', 'mob2_health': 20, 'mob2_damage': 20,
+              'mob3': 'mob3.png', 'mob3_health': 30, 'mob3_damage': 20,
+              'mob4': 'mob4.png', 'mob4_health': 50, 'mob4_damage': 20,
+              'mob5': 'mob5.png', 'mob5_health': 60, 'mob5_damage': 20}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
 SIGN_TEXTS = {'sign1': 'Welcome :D',
               'sign2': 'Made by Java :3',
               'sign3': 'fin'}
-
-PLAYER_DAMAGE = 10
-PLAYER_HEALTH = 500
-PLAYER_ARMOR = 5
-MOB1_DAMAGE = 10
-MOB1_HEALTH = 30
-MOB2_DAMAGE = 20
-MOB2_HEALTH = 20
-MOB3_DAMAGE = 20
-MOB3_HEALTH = 30
-MOB4_DAMAGE = 20
-MOB4_HEALTH = 50
-MOB5_DAMAGE = 20
-MOB5_HEALTH = 60
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
@@ -66,20 +55,19 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'armor1': 'armor1.png',
                'armor2': 'armor2.png',
                'armor3': 'armor3.png'}
-HEART_AMOUNT = 50
-POTION_AMOUNT = 50
-WEAPON1_AMOUNT = 0
-WEAPON2_AMOUNT = 5
-WEAPON3_AMOUNT = 10
-WEAPON4_AMOUNT = 5
-WEAPON5_AMOUNT = 10
-WEAPON6_AMOUNT = 15
-WEAPON7_AMOUNT = 20
-WEAPON8_AMOUNT = 20
-ARMOR1_AMOUNT = 2
-ARMOR2_AMOUNT = 4
-ARMOR3_AMOUNT = 6
-
+ITEM_AMOUNT = {'heart': 50,
+               'potion': 50,
+               'weapon1': 0,
+               'weapon2': 5,
+               'weapon3': 10,
+               'weapon4': 5,
+               'weapon5': 10,
+               'weapon6': 15,
+               'weapon7': 20,
+               'weapon8': 20,
+               'armor1': 2,
+               'armor2': 4,
+               'armor3': 6}
 TRAVEL_LIST = ['travel1',
                'travel2',
                'travel3', 
