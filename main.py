@@ -66,7 +66,9 @@ class Game:
             books = 0, 
             health_upgrade = 0, 
             armor_upgrade = 0, 
-            moves = 0):
+            moves = 0,
+            max_health = PLAYER_HEALTH,
+            max_armor = PLAYER_ARMOR):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
@@ -81,7 +83,7 @@ class Game:
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves)
+                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves, max_health, max_armor)
             if tile_object.name in MOB_LIST:
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':
@@ -146,13 +148,15 @@ class Game:
                     if self.player.books >= cost:
                         self.player.books -= cost
                         self.player.health_upgrade += 1
-                        self.player.health = PLAYER_HEALTH + (20 * self.player.health_upgrade)
+                        self.player.max_health += 20
+                        self.player.health += 20
                 elif event.key == pg.K_2:
                     cost = (self.player.armor_upgrade + 1) * 2
                     if self.player.books >= cost:
                         self.player.books -= cost
                         self.player.armor_upgrade += 1
-                        self.player.armor = PLAYER_ARMOR + self.player.armor_upgrade
+                        self.player.max_armor += 1
+                        self.player.armor += 1
                 else:
                     self.paused = not self.paused
                     pg.mixer.music.unpause()

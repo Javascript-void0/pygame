@@ -13,7 +13,9 @@ class Player(pg.sprite.Sprite):
                  books = 0, 
                  health_upgrade = 0, 
                  armor_upgrade = 0,
-                 moves = 0):
+                 moves = 0,
+                 max_health = PLAYER_HEALTH,
+                 max_armor = PLAYER_ARMOR):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -32,10 +34,12 @@ class Player(pg.sprite.Sprite):
         self.coins = int(self.game.data[0])
         self.level = 1
         self.health_upgrade = health_upgrade
+        self.max_health = (health_upgrade * 20) + PLAYER_HEALTH
+        self.max_armor = armor_upgrade + PLAYER_ARMOR
         self.armor_upgrade = armor_upgrade
-        self.health = health + (self.health_upgrade * 20) # ?
+        self.health = health
         self.damage = damage
-        self.armor = armor + self.armor_upgrade # ?
+        self.armor = armor
         self.keys = keys
         self.potions = potions
         self.books = books
@@ -86,7 +90,9 @@ class Player(pg.sprite.Sprite):
                                         self.books, 
                                         self.health_upgrade, 
                                         self.armor_upgrade, 
-                                        self.moves)
+                                        self.moves,
+                                        self.max_health,
+                                        self.max_armor)
                     else:
                         self.game.new(f'{random_travel}.tmx', 
                                         self.health, 
@@ -98,7 +104,9 @@ class Player(pg.sprite.Sprite):
                                         self.books, 
                                         self.health_upgrade, 
                                         self.armor_upgrade,
-                                        self.moves)
+                                        self.moves,
+                                        self.max_health,
+                                        self.max_armor)
                 else:
                     self.game.new(f'{travel.name}.tmx', 
                                     self.health, self.damage, 
@@ -109,7 +117,9 @@ class Player(pg.sprite.Sprite):
                                     self.books, 
                                     self.health_upgrade, 
                                     self.armor_upgrade,
-                                    self.moves)
+                                    self.moves,
+                                    self.max_health,
+                                    self.max_armor)
                 self.game.sound.play()
                 self.game.run()
                 return True
@@ -118,7 +128,7 @@ class Player(pg.sprite.Sprite):
     def item_ontop(self, x, y):
         for item in self.game.items:
             if item.x == self.x and item.y == self.y:
-                if item.type == 'heart' and self.health < PLAYER_HEALTH:
+                if item.type == 'heart' and self.health < self.max_health:
                     item.kill()
                     self.add_health(HEART_AMOUNT)
                 if item.type == 'coin':
@@ -159,13 +169,13 @@ class Player(pg.sprite.Sprite):
                     self.better_damage(item.type, WEAPON8_AMOUNT)
                 if item.type == 'armor1':
                     item.kill()
-                    self.armor_amount(ARMOR1_AMOUNT)
+                    self.add_armor(ARMOR1_AMOUNT)
                 if item.type == 'armor2':
                     item.kill()
-                    self.armor_amount(ARMOR2_AMOUNT)
+                    self.add_armor(ARMOR2_AMOUNT)
                 if item.type == 'armor3':
                     item.kill()
-                    self.armor_amount(ARMOR3_AMOUNT)
+                    self.add_armor(ARMOR3_AMOUNT)
 
     def random_item(self, game, x, y):
         item = random.choice(list(self.game.item_images))
@@ -176,15 +186,15 @@ class Player(pg.sprite.Sprite):
             self.weapon_img = self.game.item_images[img]
             self.damage = PLAYER_DAMAGE + amount
 
-    def armor_amount(self, amount):
+    def add_armor(self, amount):
         self.armor += amount
-        if self.armor > PLAYER_ARMOR:
-            self.armor = PLAYER_ARMOR
+        if self.armor > self.max_armor:
+            self.armor = self.max_armor
 
     def add_health(self, amount):
         self.health += amount
-        if self.health > PLAYER_HEALTH:
-            self.health = PLAYER_HEALTH
+        if self.health > self.max_health:
+            self.health = self.max_health
 
     def update(self):
         self.rect.x = self.x
