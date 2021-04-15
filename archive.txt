@@ -39,21 +39,21 @@ for row, tiles in enumerate(self.map.data):
         self.outline_rect = pg.Rect(10, 394, BAR_LENGTH, BAR_HEIGHT)
         pg.draw.rect(surf, C5, self.rect)
         pg.draw.rect(surf, C1, self.outline_rect, 2)
-        self.draw_text(text, self.font, 17, C1, 20, 404, align="nw")
+        self.draw_text(text, self.font, 17, C1, 20, 404, align='nw')
 
 
-        self.player_data = {"game": game, 
-                            "x": x, 
-                            "y": y, 
-                            "health": PLAYER_HEALTH, 
-                            "damage": PLAYER_DAMAGE, 
-                            "armor": PLAYER_ARMOR, 
-                            "weapon": 'weapon1', 
-                            "keys": 0, 
-                            "potions": 0, 
-                            "books": 0, 
-                            "health_upgrade": 0, 
-                            "armor_upgrade": 0,
-                            "moves": 0,
-                            "max_health": PLAYER_HEALTH,
-                            "max_armor": PLAYER_ARMOR}
+        self.player_data = {'game': game, 
+                            'x': x, 
+                            'y': y, 
+                            'health': PLAYER_HEALTH, 
+                            'damage': PLAYER_DAMAGE, 
+                            'armor': PLAYER_ARMOR, 
+                            'weapon': 'weapon1', 
+                            'keys': 0, 
+                            'potions': 0, 
+                            'books': 0, 
+                            'health_upgrade': 0, 
+                            'armor_upgrade': 0,
+                            'moves': 0,
+                            'max_health': PLAYER_HEALTH,
+                            'max_armor': PLAYER_ARMOR}

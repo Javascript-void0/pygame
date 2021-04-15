@@ -80,7 +80,7 @@ class Player(pg.sprite.Sprite):
                 if travel.name == 'travel':
                     random_travel = random.choice(TRAVEL_LIST)
                     if random_travel == self.game.map_name[:-4]:
-                        self.game.new(f'travel1.tmx', 
+                        self.game.new(f'map.tmx', 
                                         self.health, 
                                         self.damage, 
                                         self.armor, 

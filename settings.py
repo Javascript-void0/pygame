@@ -26,7 +26,9 @@ MOB_IMAGES = {'mob1': 'mob1.png', 'mob1_health': 30, 'mob1_damage': 10,
               'mob2': 'mob2.png', 'mob2_health': 20, 'mob2_damage': 20,
               'mob3': 'mob3.png', 'mob3_health': 30, 'mob3_damage': 20,
               'mob4': 'mob4.png', 'mob4_health': 50, 'mob4_damage': 20,
-              'mob5': 'mob5.png', 'mob5_health': 60, 'mob5_damage': 20}
+              'mob5': 'mob5.png', 'mob5_health': 60, 'mob5_damage': 20,
+              'mob6': 'mob6.png', 'mob6_health': 60, 'mob6_damage': 30,
+              'mob7': 'mob7.png', 'mob7_health': 30, 'mob7_damage': 40}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 SIGN_IMG = 'sign.png'
