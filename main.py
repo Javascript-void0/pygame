@@ -29,7 +29,6 @@ class Game:
         self.player_img = pg.image.load(path.join(self.asset_folder, PLAYER_IMG)).convert_alpha()
         self.skull_img = pg.image.load(path.join(self.asset_folder, SKULL_IMG)).convert_alpha()
         self.chest_img = pg.image.load(path.join(self.asset_folder, CHEST_IMG)).convert_alpha()
-        self.sign_img = pg.image.load(path.join(self.asset_folder, SIGN_IMG)).convert_alpha()
 
         self.item_images = {}
         for item in ITEM_IMAGES:
@@ -77,7 +76,7 @@ class Game:
         self.mobs = pg.sprite.Group()
         self.items = pg.sprite.Group()
         self.chests = pg.sprite.Group()
-        self.signs = pg.sprite.Group()
+        self.interacts = pg.sprite.Group()
         self.travels = pg.sprite.Group()
         self.map_name= map
         self.map = TiledMap(path.join(self.map_folder, map))
@@ -110,10 +109,10 @@ class Game:
                 Chest(self, tile_object.x, tile_object.y)
             if tile_object.name == 'travel' or tile_object.name in TRAVEL_LIST:
                 Travel(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height, tile_object.name)
-            if 'sign' in tile_object.name:
-                self.sign_texts = {}
-                for text in SIGN_TEXTS:
-                    self.sign_texts[text] = Sign(self, tile_object.x, tile_object.y, SIGN_TEXTS[tile_object.name])
+            if 'interact' in tile_object.name:
+                self.interact_texts = {}
+                for text in INTERACT_TEXTS:
+                    self.interact_texts[text] = Interact(self, tile_object.x, tile_object.y, INTERACT_TEXTS[tile_object.name])
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
         self.paused = False

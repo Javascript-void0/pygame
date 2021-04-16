@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="660">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="661">
  <tileset firstgid="1" source="../assets/32x32.tsx"/>
  <layer id="1" name="Ground" width="16" height="64" locked="1">
   <data encoding="csv">
@@ -73,7 +73,7 @@
   <data encoding="csv">
 641,642,642,642,642,642,642,642,642,642,642,642,642,642,642,643,
 689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
-689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
+689,0,0,0,353,0,0,0,0,0,0,0,0,0,0,691,
 689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
 689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
 689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
@@ -112,12 +112,12 @@
 827,0,827,0,0,827,0,827,0,0,0,0,0,0,0,691,
 827,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
 827,0,0,0,0,0,0,0,0,0,0,0,0,0,0,691,
-827,0,827,0,0,827,0,827,0,0,0,0,0,0,0,691,
+827,0,827,0,0,827,0,827,0,0,0,0,73,0,0,691,
 827,0,827,444,1019,827,0,828,0,0,0,0,0,0,0,691,
 827,828,827,827,827,827,827,827,725,0,0,0,0,0,0,691,
 249,249,249,249,2147483898,924,0,0,0,0,0,0,0,0,0,691,
 249,249,249,249,2147483898,0,0,0,0,0,0,495,0,722,102,691,
-249,249,249,249,2147483898,0,0,0,0,0,0,0,103,0,0,691,
+249,249,249,249,2147483898,0,0,0,0,353,353,0,103,0,0,691,
 146,146,146,146,146,146,146,146,0,0,0,102,0,0,0,691,
 689,675,674,674,674,674,0,147,0,0,973,974,0,103,0,691,
 689,0,0,0,0,0,0,147,0,0,973,974,0,0,0,691,
@@ -463,8 +463,8 @@
   <object id="400" name="chest" x="320" y="1184" width="32" height="32"/>
   <object id="401" name="chest" x="288" y="1184" width="32" height="32"/>
   <object id="402" name="chest" x="256" y="1184" width="32" height="32"/>
-  <object id="404" name="sign1" x="288" y="1472" width="32" height="32"/>
-  <object id="405" name="sign2" x="320" y="1472" width="32" height="32"/>
+  <object id="404" name="interact1" x="288" y="1472" width="32" height="32"/>
+  <object id="405" name="interact2" x="320" y="1472" width="32" height="32"/>
   <object id="406" name="wall" x="224" y="1120" width="32" height="32"/>
   <object id="407" name="wall" x="224" y="1088" width="32" height="32"/>
   <object id="408" name="wall" x="192" y="1088" width="32" height="32"/>
@@ -655,7 +655,7 @@
   <object id="607" name="item" x="448" y="544" width="32" height="32"/>
   <object id="608" name="item" x="256" y="320" width="32" height="32"/>
   <object id="609" name="item" x="96" y="1120" width="32" height="32"/>
-  <object id="616" name="sign3" x="128" y="64" width="32" height="32"/>
+  <object id="616" name="interact3" x="128" y="64" width="32" height="32"/>
   <object id="617" name="travel1" x="96" y="1184" width="32" height="32"/>
   <object id="618" name="travel2" x="128" y="1184" width="32" height="32"/>
   <object id="619" name="travel3" x="32" y="1120" width="32" height="32"/>
@@ -693,5 +693,6 @@
   <object id="657" name="potion" x="352" y="1056" width="32" height="32"/>
   <object id="658" name="book" x="352" y="992" width="32" height="32"/>
   <object id="659" name="book" x="352" y="1024" width="32" height="32"/>
+  <object id="660" name="interact4" x="384" y="1312" width="32" height="32"/>
  </objectgroup>
 </map>

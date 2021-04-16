@@ -1,6 +1,7 @@
 import pygame as pg
 import random
 from settings import *
+from termcolor import colored
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y, 
@@ -32,7 +33,6 @@ class Player(pg.sprite.Sprite):
         except KeyError:
             self.weapon_img = weapon
         self.coins = int(self.game.data[0])
-        self.level = 1
         self.health_upgrade = health_upgrade
         self.max_health = (health_upgrade * 20) + PLAYER_HEALTH
         self.max_armor = armor_upgrade + PLAYER_ARMOR
@@ -70,9 +70,9 @@ class Player(pg.sprite.Sprite):
                     return True
                 self.game.sound.play()
                 return True
-        for sign in self.game.signs:
-            if sign.x == self.x + dx and sign.y == self.y + dy:
-                print(sign.text)
+        for interact in self.game.interacts:
+            if interact.x == self.x + dx and interact.y == self.y + dy:
+                print(colored(interact.text, 'blue'))
                 self.game.sound.play()
                 return True
         for travel in self.game.travels:
@@ -204,8 +204,8 @@ class Mob(pg.sprite.Sprite):
         for mob in self.game.mobs:
             if mob.x == self.x + dx and mob.y == self.y + dy:
                 return True
-        for sign in self.game.signs:
-            if sign.x == self.x + dx and sign.y == self.y + dy:
+        for interact in self.game.interacts:
+            if interact.x == self.x + dx and interact.y == self.y + dy:
                 return True
         for travel in self.game.travels:
             if travel.x == self.x + dx and travel.y == self.y + dy:
@@ -311,18 +311,15 @@ class Chest(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-class Sign(pg.sprite.Sprite):
+class Interact(pg.sprite.Sprite):
     def __init__(self, game, x, y, text):
         self._layer = WALL_LAYER
-        self.groups = game.all_sprites, game.signs
+        self.groups = game.interacts
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = game.sign_img
-        self.rect = self.image.get_rect()
+        self.rect = pg.Rect(x, y, TILESIZE, TILESIZE)
         self.x = x
         self.y = y
-        self.rect.x = x
-        self.rect.y = y
         self.text = text
 
 class Travel(pg.sprite.Sprite):

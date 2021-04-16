@@ -31,10 +31,10 @@ MOB_IMAGES = {'mob1': 'mob1.png', 'mob1_health': 30, 'mob1_damage': 10,
               'mob7': 'mob7.png', 'mob7_health': 30, 'mob7_damage': 40}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
-SIGN_IMG = 'sign.png'
-SIGN_TEXTS = {'sign1': 'Welcome :D',
-              'sign2': 'Made by Java :3',
-              'sign3': 'fin'}
+INTERACT_TEXTS = {'interact1': 'Welcome :D',
+                  'interact2': 'Made by Java :3',
+                  'interact3': 'fin',
+                  'interact4': "VALOR: Hey there! Controls are WASD or arrow keys, 'q' to use potions, 'e' to pause and open upgrades and stats. To upgrade, collect books and click '1' or '2' in upgrade menu for health upgrade or armor upgrade. "}
 
 PLAYER_LAYER = 3
 MOB_LAYER = 3
