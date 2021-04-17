@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="210">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="215">
  <tileset firstgid="1" source="../assets/32x32.tsx"/>
  <layer id="3" name="Ground" width="16" height="24" locked="1">
   <data encoding="csv">
@@ -266,5 +266,10 @@
   <object id="207" name="item" x="192" y="416" width="32" height="32"/>
   <object id="208" name="item" x="480" y="0" width="32" height="32"/>
   <object id="209" name="item" x="224" y="32" width="32" height="32"/>
+  <object id="210" name="mob" x="192" y="224" width="32" height="32"/>
+  <object id="211" name="mob" x="96" y="416" width="32" height="32"/>
+  <object id="212" name="mob" x="480" y="96" width="32" height="32"/>
+  <object id="213" name="mob" x="288" y="32" width="32" height="32"/>
+  <object id="214" name="mob" x="416" y="704" width="32" height="32"/>
  </objectgroup>
 </map>
