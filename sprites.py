@@ -16,7 +16,8 @@ class Player(pg.sprite.Sprite):
                  armor_upgrade = 0,
                  moves = 0,
                  max_health = PLAYER_HEALTH,
-                 max_armor = PLAYER_ARMOR):
+                 max_armor = PLAYER_ARMOR,
+                 score = 0):
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -32,7 +33,7 @@ class Player(pg.sprite.Sprite):
             self.weapon_img = game.item_images[weapon]
         except KeyError:
             self.weapon_img = weapon
-        self.coins = int(self.game.data[0])
+        self.coins = int(self.game.load_data[0])
         self.health_upgrade = health_upgrade
         self.max_health = (health_upgrade * 20) + PLAYER_HEALTH
         self.max_armor = armor_upgrade + PLAYER_ARMOR
@@ -44,6 +45,7 @@ class Player(pg.sprite.Sprite):
         self.potions = potions
         self.books = books
         self.moves = moves
+        self.score = score
     
     def move(self, dx = 0, dy = 0):
         if not self.collide(dx * TILESIZE, dy * TILESIZE):
@@ -67,6 +69,7 @@ class Player(pg.sprite.Sprite):
                     chest.kill()
                     self.random_item(self.game, chest.x, chest.y)
                     self.keys -= 1
+                    self.score += 6
                     return True
                 self.game.sound.play()
                 return True
@@ -92,7 +95,8 @@ class Player(pg.sprite.Sprite):
                                         self.armor_upgrade, 
                                         self.moves,
                                         self.max_health,
-                                        self.max_armor)
+                                        self.max_armor,
+                                        self.score)
                     else:
                         self.game.new(f'{random_travel}.tmx', 
                                         self.health, 
@@ -106,7 +110,8 @@ class Player(pg.sprite.Sprite):
                                         self.armor_upgrade,
                                         self.moves,
                                         self.max_health,
-                                        self.max_armor)
+                                        self.max_armor,
+                                        self.score)
                 else:
                     self.game.new(f'{travel.name}.tmx', 
                                     self.health, self.damage, 
@@ -119,7 +124,8 @@ class Player(pg.sprite.Sprite):
                                     self.armor_upgrade,
                                     self.moves,
                                     self.max_health,
-                                    self.max_armor)
+                                    self.max_armor,
+                                    self.score)
                 self.game.sound.play()
                 self.game.run()
                 return True
@@ -130,24 +136,31 @@ class Player(pg.sprite.Sprite):
             if item.x == self.x and item.y == self.y:
                 if item.type == 'heart' and self.health < self.max_health:
                     item.kill()
+                    self.score += 2
                     self.add_health(ITEM_AMOUNT['heart'])
                 if item.type == 'coin':
                     item.kill()
+                    self.score += 2
                     self.coins += 1
                 if item.type == 'key':
                     item.kill()
+                    self.score += 2
                     self.keys += 1
                 if item.type == 'potion':
                     item.kill()
+                    self.score += 2
                     self.potions += 1
                 if item.type == 'book':
                     item.kill()
+                    self.score += 2
                     self.books += 1
                 if 'weapon' in item.type:
                     item.kill()
+                    self.score += 2
                     self.better_damage(item.type, ITEM_AMOUNT[item.type])
                 if 'armor' in item.type:
                     item.kill()
+                    self.score += 2
                     self.add_armor(ITEM_AMOUNT[item.type])
 
     def random_item(self, game, x, y):
@@ -257,6 +270,7 @@ class Mob(pg.sprite.Sprite):
         if self.health <= 0:
             self.kill()
             self.game.player.coins += 1
+            self.game.player.score += 4
             rand = random.randint(1, 20)
             if rand == 1:
                 Player.random_item(self, self.game, self.x, self.y)

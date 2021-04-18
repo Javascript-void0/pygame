@@ -57,6 +57,7 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'armor1': 'armor1.png',
                'armor2': 'armor2.png',
                'armor3': 'armor3.png'}
+COINS = 'coins.png'
 ITEM_AMOUNT = {'heart': 50,
                'potion': 50,
                'weapon1': 0,

@@ -89,7 +89,7 @@ class Draw:
         Draw.draw_text(self, f'x{self.player.keys}', self.font, 10, C1, x - 17, y + 40, align="center")
 
         x, y = (WIDTH / 2) + 25, 10
-        self.coin_img = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES['coin'])).convert_alpha()
+        self.coin_img = pg.image.load(path.join(self.asset_folder, COINS)).convert_alpha()
         self.coin_img = pg.transform.scale(self.coin_img, (24, 24))
         self.img_rect = self.coin_img.get_rect()
         self.img_rect.topleft = (x, y)
@@ -154,9 +154,13 @@ class Draw:
         self.weapon_img = pg.transform.scale(self.player.weapon_img, (24, 24))
         surf.blit(self.weapon_img, (x + 10, y + 44))
         surf.blit(self.armor_img, (x + 10, y + 74))
-        Draw.draw_text(self, f'Health: {self.player.max_health}', self.font, 10, C1, x + 46, y + 26, align="w")
-        Draw.draw_text(self, f'Damage: {self.player.damage}', self.font, 10, C1, x + 46, y + 60, align="w")
-        Draw.draw_text(self, f'Armor: {self.player.max_armor}', self.font, 10, C1, x + 46, y + 90, align="w")
+        Draw.draw_text(self, f'HP: {self.player.max_health}', self.font, 12, C1, x + 50, y + 26, align="w")
+        Draw.draw_text(self, f'DMG: {self.player.damage}', self.font, 12, C1, x + 50, y + 60, align="w")
+        Draw.draw_text(self, f'AMR: {self.player.max_armor}', self.font, 12, C1, x + 50, y + 90, align="w")
+
+    def draw_player_moves(self, surf, x, y):
+        Draw.draw_text(self, f'Moves: {self.player.moves}', self.font, 15, C1, x , y, align="e")
 
     def draw_player_score(self, surf, x, y):
-        Draw.draw_text(self, f'~{self.player.moves}', self.font, 15, C1, x , y, align="e")
+        Draw.draw_text(self, f'Score: {self.player.score}', self.font, 15, C1, x, y, align="n")
+        Draw.draw_text(self, f'PB: {self.load_data[1]}', self.font, 15, C1, x, y + 20, align="n")

@@ -46,17 +46,19 @@ class Game:
         self.footstep.set_volume(0.03)
 
     def load_user_data(self):
-        self.data = open("user_data.txt", "r").readlines()
-        for i in range(len(self.data)-1, -1, -1):
-            self.data[i] = self.data[i].rstrip("\n")
+        self.load_data = open("user_data.txt", "r").readlines()
+        for i in range(len(self.load_data)-1, -1, -1):
+            self.load_data[i] = self.load_data[i].rstrip("\n")
             if i % 2 == 0:
-                self.data.remove(self.data[i])
+                self.load_data.remove(self.load_data[i])
 
     def save_user_data(self):
-        data = open("user_data.txt", "r").readlines()
-        data[1] = str(self.player.coins) + '\n'
+        self.save_data = open("user_data.txt", "r").readlines()
+        self.save_data[1] = str(self.player.coins) + '\n'
+        if self.player.score > int(self.save_data[3]):
+            self.save_data[3] = str(self.player.score) + '\n'
         out = open("user_data.txt", "w")
-        out.writelines(data)
+        out.writelines(self.save_data)
         out.close()
 
     def new(self, map, health = PLAYER_HEALTH, 
@@ -70,7 +72,8 @@ class Game:
             armor_upgrade = 0, 
             moves = 0,
             max_health = PLAYER_HEALTH,
-            max_armor = PLAYER_ARMOR):
+            max_armor = PLAYER_ARMOR,
+            score = 0):
         self.all_sprites = pg.sprite.LayeredUpdates()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
@@ -85,7 +88,7 @@ class Game:
 
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves, max_health, max_armor)
+                self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves, max_health, max_armor, score)
             if tile_object.name in MOB_IMAGES.keys():
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':
@@ -116,6 +119,8 @@ class Game:
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
         self.paused = False
+        self.load_user_data()
+        self.save_user_data()
 
     def run(self):
         self.playing = True
@@ -140,6 +145,8 @@ class Game:
         if self.player.health <= 0:
             self.player.health = 0
             self.playing = False
+        self.load_user_data()
+        self.save_user_data()
 
     def pause(self):
         pg.mixer.music.pause()
@@ -159,6 +166,7 @@ class Game:
                         self.player.health_upgrade += 1
                         self.player.max_health += 20
                         self.player.health += 20
+                        self.player.score += 10
                 elif event.key == pg.K_2:
                     cost = (self.player.armor_upgrade + 1) * 2
                     if self.player.books >= cost:
@@ -166,10 +174,10 @@ class Game:
                         self.player.armor_upgrade += 1
                         self.player.max_armor += 1
                         self.player.armor += 1
+                        self.player.score += 10
                 else:
                     self.paused = not self.paused
                     pg.mixer.music.unpause()
-                    self.save_user_data()
 
     def events(self):
         for event in pg.event.get():
@@ -225,7 +233,8 @@ class Game:
             Draw.draw_paused(self, self.screen, (WIDTH / 2), (HEIGHT * 7 / 8) - 10)
             Draw.draw_upgrades(self, self.screen, 140, HEIGHT - 45)
             Draw.draw_player_stats(self, self.screen, (WIDTH / 2) - 80, HEIGHT - (TILESIZE * 3.5) - 10)
-            Draw.draw_player_score(self, self.screen, WIDTH - 20, HEIGHT - 20)
+            Draw.draw_player_moves(self, self.screen, WIDTH - 20, HEIGHT - 20)
+            Draw.draw_player_score(self, self.screen, WIDTH / 2, (HEIGHT / 2) + 40)
         pg.display.flip()
 
     def show_start_screen(self):
