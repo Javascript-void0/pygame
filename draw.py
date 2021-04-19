@@ -61,7 +61,7 @@ class Draw:
         pg.draw.rect(surf, C1, self.outline_rect, 2)
 
     def draw_top(self, surf, x, y):
-        self.potion_img = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES['potion'])).convert_alpha()
+        self.potion_img = pg.image.load(path.join(self.asset_folder, ITEMS['potion'])).convert_alpha()
         self.potion_img = pg.transform.scale(self.potion_img, (24, 24))
         self.img_rect = self.potion_img.get_rect()
         self.img_rect.midtop = (x, y)
@@ -75,7 +75,7 @@ class Draw:
         Draw.draw_text(self, f'x{self.player.potions}', self.font, 10, C1, x + 3, y + 40, align="center")
 
         x, y = (WIDTH / 2) - 25, 10
-        self.key_img = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES['key'])).convert_alpha()
+        self.key_img = pg.image.load(path.join(self.asset_folder, ITEMS['key'])).convert_alpha()
         self.key_img = pg.transform.scale(self.key_img, (24, 24))
         self.img_rect = self.key_img.get_rect()
         self.img_rect.topright = (x, y)
@@ -89,7 +89,7 @@ class Draw:
         Draw.draw_text(self, f'x{self.player.keys}', self.font, 10, C1, x - 17, y + 40, align="center")
 
         x, y = (WIDTH / 2) + 25, 10
-        self.coin_img = pg.image.load(path.join(self.asset_folder, COINS)).convert_alpha()
+        self.coin_img = pg.image.load(path.join(self.asset_folder, 'coins.png')).convert_alpha()
         self.coin_img = pg.transform.scale(self.coin_img, (24, 24))
         self.img_rect = self.coin_img.get_rect()
         self.img_rect.topleft = (x, y)
@@ -103,7 +103,7 @@ class Draw:
         Draw.draw_text(self, f'x{self.player.coins}', self.font, 10, C1, x + 19, y + 40, align="center")
         
     def draw_upgrades(self, surf, x, y):
-        self.heart_img = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES['heart'])).convert_alpha()
+        self.heart_img = pg.image.load(path.join(self.asset_folder, ITEMS['heart'])).convert_alpha()
         self.img_rect = self.heart_img.get_rect()
         self.img_rect.center = (x, y)
         self.bg1 = pg.Rect(x, y, TILESIZE + 20, TILESIZE + 38)
@@ -127,7 +127,7 @@ class Draw:
         surf.blit(self.armor_img, (x - 15, y - 26))
         Draw.draw_text(self, f'l.{self.player.armor_upgrade}', self.font, 10, C1, x + 3, y + 14, align="center")
         
-        self.book_img = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES['book'])).convert_alpha()
+        self.book_img = pg.image.load(path.join(self.asset_folder, ITEMS['book'])).convert_alpha()
         self.book_img = pg.transform.scale(self.book_img, (24, 24))
         self.img_rect = self.book_img.get_rect()
         self.bg = pg.Rect(x, y, 34, TILESIZE + 30)

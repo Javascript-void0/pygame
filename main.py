@@ -27,8 +27,8 @@ class Game:
         self.dim_screen.fill((0, 0, 0, 180))
 
         self.player_img = pg.image.load(path.join(self.asset_folder, PLAYER_IMG)).convert_alpha()
-        self.skull_img = pg.image.load(path.join(self.asset_folder, SKULL_IMG)).convert_alpha()
-        self.chest_img = pg.image.load(path.join(self.asset_folder, CHEST_IMG)).convert_alpha()
+        self.skull_img = pg.image.load(path.join(self.asset_folder, 'skull.png')).convert_alpha()
+        self.chest_img = pg.image.load(path.join(self.asset_folder, 'chest.png')).convert_alpha()
 
         self.item_images = {}
         for item in ITEMS:
@@ -211,7 +211,8 @@ class Game:
                     self.paused = not self.paused
                 if event.key == pg.K_q:
                     if self.player.health < self.player.max_health and self.player.potions > 0:
-                        self.player.add_health(ITEMS['potion'])
+                        self.player.potions -= 1
+                        self.player.add_health(ITEMS['potion_amount'])
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f} ({}, {}) MAP: {}".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE, self.map_name))
