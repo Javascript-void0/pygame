@@ -28,7 +28,9 @@ MOB_IMAGES = {'mob1': 'mob1.png', 'mob1_health': 30, 'mob1_damage': 10,
               'mob4': 'mob4.png', 'mob4_health': 50, 'mob4_damage': 20,
               'mob5': 'mob5.png', 'mob5_health': 60, 'mob5_damage': 20,
               'mob6': 'mob6.png', 'mob6_health': 60, 'mob6_damage': 30,
-              'mob7': 'mob7.png', 'mob7_health': 30, 'mob7_damage': 40}
+              'mob7': 'mob7.png', 'mob7_health': 30, 'mob7_damage': 40,
+              'mob8': 'mob8.png', 'mob8_health': 30, 'mob8_damage': 30,
+              'mob9': 'mob9.png', 'mob9_health': 80, 'mob9_damage': 20}
 SKULL_IMG = 'skull.png'
 CHEST_IMG = 'chest.png'
 INTERACT_TEXTS = {'interact1': 'Welcome :D',
@@ -54,6 +56,10 @@ ITEM_IMAGES = {'heart': 'heart.png',
                'weapon6': 'weapon6.png',
                'weapon7': 'weapon7.png',
                'weapon8': 'weapon8.png',
+               'weapon9': 'weapon9.png',
+               'weapon10': 'weapon10.png',
+               'weapon11': 'weapon11.png',
+               'weapon12': 'weapon12.png',
                'armor1': 'armor1.png',
                'armor2': 'armor2.png',
                'armor3': 'armor3.png'}
