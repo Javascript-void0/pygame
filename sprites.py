@@ -137,7 +137,7 @@ class Player(pg.sprite.Sprite):
                 if item.type == 'heart' and self.health < self.max_health:
                     item.kill()
                     self.score += 2
-                    self.add_health(ITEM_AMOUNT['heart'])
+                    self.add_health(ITEMS['heart_amount'])
                 if item.type == 'coin':
                     item.kill()
                     self.score += 2
@@ -157,11 +157,13 @@ class Player(pg.sprite.Sprite):
                 if 'weapon' in item.type:
                     item.kill()
                     self.score += 2
-                    self.better_damage(item.type, ITEM_AMOUNT[item.type])
+                    x = str(item.type) + '_amount'
+                    self.better_damage(item.type, ITEMS[x])
                 if 'armor' in item.type:
                     item.kill()
                     self.score += 2
-                    self.add_armor(ITEM_AMOUNT[item.type])
+                    x = str(item.type) + '_amount'
+                    self.add_armor(ITEMS[x])
 
     def random_item(self, game, x, y):
         item = random.choice(list(self.game.item_images))
@@ -204,8 +206,8 @@ class Mob(pg.sprite.Sprite):
         self.type = type
 
         if 'mob' in self.type:
-            self.health = MOB_IMAGES[str(self.type) + '_health']
-            self.damage = MOB_IMAGES[str(self.type) + '_damage']
+            self.health = MOBS[str(self.type) + '_health']
+            self.damage = MOBS[str(self.type) + '_damage']
 
     def collide(self, dx = 0, dy = 0):
         for wall in self.game.walls:

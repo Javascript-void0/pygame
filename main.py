@@ -31,14 +31,13 @@ class Game:
         self.chest_img = pg.image.load(path.join(self.asset_folder, CHEST_IMG)).convert_alpha()
 
         self.item_images = {}
-        for item in ITEM_IMAGES:
-            self.item_images[item] = pg.image.load(path.join(self.asset_folder, ITEM_IMAGES[item])).convert_alpha()
+        for item in ITEMS:
+            if '_' not in item:
+                self.item_images[item] = pg.image.load(path.join(self.asset_folder, ITEMS[item])).convert_alpha()
         self.mob_images = {}
-        for mob in MOB_IMAGES:
-            try:
-                self.mob_images[mob] = pg.image.load(path.join(self.asset_folder, MOB_IMAGES[mob])).convert_alpha()
-            except TypeError:
-                pass
+        for mob in MOBS:
+            if '_' not in mob:
+                self.mob_images[mob] = pg.image.load(path.join(self.asset_folder, MOBS[mob])).convert_alpha()
         self.load_user_data()
         self.sound = pg.mixer.Sound(path.join(self.asset_folder, 'obstacle.wav'))
         self.sound.set_volume(0.008)
@@ -89,23 +88,24 @@ class Game:
         for tile_object in self.map.tmxdata.objects:
             if tile_object.name == 'player':
                 self.player = Player(self, tile_object.x, tile_object.y, health, damage, armor, weapon, keys, potions, books, health_upgrade, armor_upgrade, moves, max_health, max_armor, score)
-            if tile_object.name in MOB_IMAGES.keys():
+            if tile_object.name in MOBS.keys():
                 Mob(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'mob':
                 mob_list = []
-                for i in MOB_IMAGES.keys():
+                for i in MOBS.keys():
                     if '_' not in i:
                         mob_list.append(i)
                 random_mob = random.choice(mob_list)
                 Mob(self, tile_object.x, tile_object.y, random_mob)
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ITEM_IMAGES.keys():
+            if tile_object.name in ITEMS.keys():
                 Item(self, tile_object.x, tile_object.y, tile_object.name)
             if tile_object.name == 'item':
                 item_list = []
-                for i in ITEM_IMAGES.keys():
-                    item_list.append(i)
+                for i in ITEMS.keys():
+                    if '_' not in i:
+                        item_list.append(i)
                 random_item = random.choice(item_list)
                 Item(self, tile_object.x, tile_object.y, random_item)
             if tile_object.name == 'chest':
@@ -211,7 +211,7 @@ class Game:
                     self.paused = not self.paused
                 if event.key == pg.K_q:
                     if self.player.health < self.player.max_health and self.player.potions > 0:
-                        self.player.add_health(ITEM_AMOUNT['potion'])
+                        self.player.add_health(ITEMS['potion'])
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f} ({}, {}) MAP: {}".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE, self.map_name))
