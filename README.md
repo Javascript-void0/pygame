@@ -4,11 +4,11 @@
 
 - [x] Randomize Mobs
 - [x] Randomize Travels (maps)
-- [ ] Maps 3-11
+- [ ] Maps 3-9
 - [ ] More Items and Mobs
 - [x] Player Upgrades
 - [x] Player Stats
 - [x] Fix Health and Armor Bar from upgrade
-- [ ] Text
+- [x] Text
 - [x] Mob Drops
 - [ ] Better Map System?
