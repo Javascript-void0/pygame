@@ -5,4 +5,9 @@
  <tile id="2" probability="0.05"/>
  <tile id="3" probability="0.05"/>
  <tile id="4" probability="0.05"/>
+ <tile id="827" probability="0.05"/>
+ <tile id="828" probability="0.05"/>
+ <tile id="829" probability="0.001"/>
+ <tile id="874" probability="0.05"/>
+ <tile id="875" probability="0.05"/>
 </tileset>

@@ -210,15 +210,11 @@ class Game:
                 if event.key == pg.K_e:
                     self.paused = not self.paused
                 if event.key == pg.K_q:
-                    if self.player.health < PLAYER_HEALTH and self.player.potions > 0:
-                        self.player.potions -= 1
-                        self.player.health += ITEM_AMOUNT['potion']
-                        if self.player.health > PLAYER_HEALTH:
-                            self.player.health = PLAYER_HEALTH
+                    if self.player.health < self.player.max_health and self.player.potions > 0:
+                        self.player.add_health(ITEM_AMOUNT['potion'])
 
     def draw(self):
         pg.display.set_caption("{} FPS: {:.2f} ({}, {}) MAP: {}".format(TITLE, self.clock.get_fps(), self.player.x / TILESIZE, self.player.y / TILESIZE, self.map_name))
-        # self.screen.fill(BG_COLOR)
         self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
@@ -244,6 +240,7 @@ class Game:
         self.screen.blit(self.dim_screen, (0, 0))
         Draw.draw_text(self, "game over", self.font, 30, C1, WIDTH / 2, HEIGHT * 4 / 9, align="center")
         Draw.draw_text(self, "press a key to start", self.font, 23, C1, WIDTH / 2, HEIGHT * 5 / 9, align="center")
+        Draw.draw_text(self, f"score: {self.player.score}", self.font, 15, C1, WIDTH / 2, HEIGHT / 2, align="center")
         pg.display.flip()
         self.wait_for_key()
 
