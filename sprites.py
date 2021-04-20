@@ -126,7 +126,6 @@ class Player(pg.sprite.Sprite):
                                     self.max_health,
                                     self.max_armor,
                                     self.score)
-                self.game.sound.play()
                 self.game.run()
                 return True
         return False
