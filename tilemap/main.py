@@ -45,18 +45,18 @@ class Game:
         self.footstep.set_volume(0.03)
 
     def load_user_data(self):
-        self.load_data = open("user_data.txt", "r").readlines()
+        self.load_data = open("tilemap/user_data.txt", "r").readlines()
         for i in range(len(self.load_data)-1, -1, -1):
             self.load_data[i] = self.load_data[i].rstrip("\n")
             if i % 2 == 0:
                 self.load_data.remove(self.load_data[i])
 
     def save_user_data(self):
-        self.save_data = open("user_data.txt", "r").readlines()
+        self.save_data = open("tilemap/user_data.txt", "r").readlines()
         self.save_data[1] = str(self.player.coins) + '\n'
         if self.player.score > int(self.save_data[3]):
             self.save_data[3] = str(self.player.score) + '\n'
-        out = open("user_data.txt", "w")
+        out = open("tilemap/user_data.txt", "w")
         out.writelines(self.save_data)
         out.close()
 
