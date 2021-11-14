@@ -2,3 +2,6 @@ __pycache__
 venv/
 .vscode/
 *.psd
+tcod/savegame.bak
+tcod/savegame.dat
+tcod/savegame.dir
