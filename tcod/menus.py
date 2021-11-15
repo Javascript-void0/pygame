@@ -23,11 +23,20 @@ def menu(con, header, options, width, screen_width, screen_height):
     y = int(screen_height / 2 - height / 2)
     libtcod.console_blit(window, 0, 0, width, height, 0, x, y, 1.0, 0.7)
 
-def inventory_menu(con, header, inventory, inventory_width, screen_width, screen_height):
-    if len(inventory.items) == 0:
+def inventory_menu(con, header, player, inventory_width, screen_width, screen_height):
+    if len(player.inventory.items) == 0:
         options = ['Inventory is empty. ']
     else:
-        options = [item.name for item in inventory.items]
+        options = []
+
+        for item in player.inventory.items:
+            if player.equipment.main_hand == item:
+                options.append(f'{item.name} (on main hand)')
+            elif player.equipment.off_hand == item:
+                options.append(f'{item.name} (on off hand)')
+            else:
+                options.append(item.name)
+                
     menu(con, header, options, inventory_width, screen_width, screen_height)
 
 def main_menu(con, screen_width, screen_height):
@@ -37,6 +46,38 @@ def main_menu(con, screen_width, screen_height):
     libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height - 2), libtcod.BKGND_NONE, libtcod.CENTER, 'htpps://rogueliketutorials.com')
 
     menu(con, '', ['Play a new game', 'Continue last game', 'Quit'], 24, screen_width, screen_height)
+
+def level_up_menu(con, header, player, menu_width, screen_width, screen_height):
+    options = [f'Constitution (+20 HP, from {player.fighter.base_max_hp})', 
+               f'Strength (+1 attack, from {player.fighter.base_power})',
+               f'Agility (+1 defense, from {player.fighter.base_defense})']
+
+    menu(con, header, options, menu_width, screen_width, screen_height)
+
+def character_screen(player, character_screen_width, character_screen_height, screen_width, screen_height):
+    window = libtcod.console_new(character_screen_width, character_screen_height)
+
+    libtcod.console_set_default_foreground(window, libtcod.white)
+
+    libtcod.console_print_rect_ex(window, 0, 1, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Character Information')
+    libtcod.console_print_rect_ex(window, 0, 2, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Level: {0}'.format(player.level.current_level))
+    libtcod.console_print_rect_ex(window, 0, 3, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Experience: {0}'.format(player.level.current_xp))
+    libtcod.console_print_rect_ex(window, 0, 4, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Experience to Level: {0}'.format(player.level.experience_to_next_level))
+    libtcod.console_print_rect_ex(window, 0, 6, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Maximum HP: {0}'.format(player.fighter.base_max_hp))
+    libtcod.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Attack: {0}'.format(player.fighter.base_power))
+    libtcod.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Defense: {0}'.format(player.fighter.base_defense))
+
+    x = screen_width // 2 - character_screen_width // 2
+    y = screen_height // 2 - character_screen_height // 2
+    libtcod.console_blit(window, 0, 0, character_screen_width, character_screen_height, 0, x, y, 1.0, 0.7)
+
 
 def message_box(con, header, width, screen_width, screen_height):
     menu(con, header, [], width, screen_width, screen_height)
