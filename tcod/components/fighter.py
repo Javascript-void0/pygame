@@ -46,8 +46,8 @@ class Fighter:
 
     def heal(self, amount):
         self.hp += amount
-        if self.hp > self.max_hp:
-            self.hp = self.max_hp
+        if self.hp > self.base_max_hp:
+            self.hp = self.base_max_hp
 
     def attack(self, target):
         results = []
