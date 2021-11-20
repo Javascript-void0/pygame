@@ -216,9 +216,9 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
-            else:
+            elif game_state != GameStates.PLAYER_DEAD:
                 save_game(player, entities, game_map, message_log, game_state)
-
+            else:
                 return True
 
         if fullscreen:
